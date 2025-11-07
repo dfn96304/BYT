@@ -4,10 +4,25 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="356c2d57-5707-4324-9817-25aebcba48f7" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/junitExample/test.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="356c2d57-5707-4324-9817-25aebcba48f7" name="Changes" comment="Create classes">
+      <change afterPath="$PROJECT_DIR$/src/BYT/MenuStatus.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/BYT/OrderStatus.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BYT/Chef.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BYT/Chef.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BYT/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BYT/Customer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BYT/Drink.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BYT/Drink.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BYT/Employee.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BYT/Employee.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BYT/Food.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BYT/Food.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BYT/Ingredient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BYT/Ingredient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BYT/Menu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BYT/Menu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BYT/MenuItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BYT/MenuItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BYT/Normal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BYT/Normal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BYT/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BYT/Order.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BYT/Person.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BYT/Person.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BYT/Reservation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BYT/Reservation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BYT/Table.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BYT/Table.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BYT/Vegan.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BYT/Vegan.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BYT/Waiter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BYT/Waiter.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,24 +33,30 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="Enum" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "kittyCatIsHere"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;kittyCatIsHere&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/dfn96304/BYT.git",
-    "accountId": "23e998ec-c873-437c-bef4-073b32aad083"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/dfn96304/BYT.git&quot;,
+    &quot;accountId&quot;: &quot;23e998ec-c873-437c-bef4-073b32aad083&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 5
 }</component>
@@ -55,7 +76,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "master",
+    "git-widget-placeholder": "class-skeleton",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "node.js.detected.package.eslint": "true",
@@ -94,8 +115,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-a94e463ab2e7-intellij.indexing.shared.core-IU-243.25659.59" />
-        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-IU-243.25659.59" />
+        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.17011.79" />
+        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-IU-241.17011.79" />
       </set>
     </attachedChunks>
   </component>
@@ -109,7 +130,25 @@
       <updated>1762521623781</updated>
       <workItem from="1762521624892" duration="1237000" />
       <workItem from="1762532819868" duration="639000" />
+      <workItem from="1762541059742" duration="1060000" />
     </task>
+    <task id="LOCAL-00001" summary="BYT package, Person class created">
+      <option name="closed" value="true" />
+      <created>1762541359964</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1762541359964</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Create classes">
+      <option name="closed" value="true" />
+      <created>1762541578147</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1762541578147</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -120,10 +159,27 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="class-skeleton" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="BYT package, Person class created" />
+    <MESSAGE value="Create classes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Create classes" />
   </component>
 </project>
