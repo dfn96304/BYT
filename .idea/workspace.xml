@@ -4,7 +4,26 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="356c2d57-5707-4324-9817-25aebcba48f7" name="Changes" comment="BYT package, Person class created" />
+    <list default="true" id="356c2d57-5707-4324-9817-25aebcba48f7" name="Changes" comment="Create classes">
+      <change afterPath="$PROJECT_DIR$/src/BYT/MenuStatus.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/BYT/OrderStatus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BYT/Chef.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BYT/Chef.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BYT/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BYT/Customer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BYT/Drink.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BYT/Drink.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BYT/Employee.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BYT/Employee.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BYT/Food.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BYT/Food.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BYT/Ingredient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BYT/Ingredient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BYT/Menu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BYT/Menu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BYT/MenuItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BYT/MenuItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BYT/Normal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BYT/Normal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BYT/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BYT/Order.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BYT/Person.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BYT/Person.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BYT/Reservation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BYT/Reservation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BYT/Table.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BYT/Table.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BYT/Vegan.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BYT/Vegan.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BYT/Waiter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BYT/Waiter.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -14,6 +33,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="Enum" />
       </list>
     </option>
   </component>
@@ -110,7 +130,7 @@
       <updated>1762521623781</updated>
       <workItem from="1762521624892" duration="1237000" />
       <workItem from="1762532819868" duration="639000" />
-      <workItem from="1762541059742" duration="300000" />
+      <workItem from="1762541059742" duration="1060000" />
     </task>
     <task id="LOCAL-00001" summary="BYT package, Person class created">
       <option name="closed" value="true" />
@@ -120,7 +140,15 @@
       <option name="project" value="LOCAL" />
       <updated>1762541359964</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Create classes">
+      <option name="closed" value="true" />
+      <created>1762541578147</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1762541578147</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -151,6 +179,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="BYT package, Person class created" />
-    <option name="LAST_COMMIT_MESSAGE" value="BYT package, Person class created" />
+    <MESSAGE value="Create classes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Create classes" />
   </component>
 </project>
