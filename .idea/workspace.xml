@@ -4,12 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="356c2d57-5707-4324-9817-25aebcba48f7" name="Changes" comment="Add extents.bin (persistence file) to .gitignore">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/BYT/Extents.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BYT/Extents.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/BYT/Person.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BYT/Person.java" afterDir="false" />
-    </list>
+    <list default="true" id="356c2d57-5707-4324-9817-25aebcba48f7" name="Changes" comment="Add extents.bin (persistence file) to .gitignore" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
