@@ -1,5 +1,6 @@
 package BYT;
 
+// contains AI-generated elements
 import java.io.IOException;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;

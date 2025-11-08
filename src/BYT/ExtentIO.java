@@ -1,6 +1,6 @@
 package BYT;
 
-// ExtentIO.java
+// AI-generated, see PDF
 import java.io.*;
 import java.lang.reflect.*;
 import java.nio.file.*;
