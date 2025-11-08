@@ -64,6 +64,15 @@ public class MenuTest {
     }
 
     @Test
+    void testDateAttributes(){
+        LocalDate today = LocalDate.now();
+        Menu m = new Menu(today.plusDays(123), today.plusDays(456));
+
+        assertEquals(today.plusDays(123), m.getReleaseDate());
+        assertEquals(today.plusDays(456), m.getEndDate());
+    }
+
+    @Test
     void constructor_addsToExtent_andSetsCurrentlyValid_WhenReleaseDateIsToday() {
         LocalDate today = LocalDate.now();
         Menu m = new Menu(today, today); // 1-day menu
