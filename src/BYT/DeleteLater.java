@@ -26,19 +26,26 @@ public class DeleteLater {
         Table.tables.add(table7);
         Table.tables.add(table8);
         Table.tables.add(table9);
-        Calendar cal = Calendar.getInstance(); // bugünün tarihi
+        Calendar cal = Calendar.getInstance();
         cal.add(Calendar.DAY_OF_YEAR, 1);
         Date startDate = cal.getTime();
-        Calendar cal2 = Calendar.getInstance(); // bugünün tarihi
+
+        Calendar cal2 = Calendar.getInstance();
         cal2.add(Calendar.DAY_OF_YEAR, 2);
-        Date endDate = cal.getTime();
-        Customer c1 = new Customer(1);
+        Date endDate = cal2.getTime();
+        Customer c1=new Customer(1);
 
         Reservation.createReservation(startDate,endDate,c1,3);
-        Reservation.createReservation(startDate,endDate,c1,6);
+        Reservation.createReservation(startDate,endDate,c1,2);
         for(Reservation r: Reservation.reservation){
             System.out.println(r);
         }
+        Reservation.cancelReservation(startDate,endDate,"A8");
+
+        for(Reservation r: Reservation.reservation){
+            System.out.println(r);
+        }
+
 
     }
 }

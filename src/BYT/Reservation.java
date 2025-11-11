@@ -39,7 +39,7 @@ public class Reservation {
             }
 
             if (!exactConflict) {
-                freeTables.add(t); // SADECE bir kez ekle
+                freeTables.add(t); 
             }
         }
         return freeTables;
@@ -58,9 +58,45 @@ public class Reservation {
         int index=sc.nextInt();
         reservation.add(new Reservation(startAt,endsAt,customer,freeTables.get(index).tableNumber,numberOfPeople));
     }
-    public void cancelReservation(Date startAt,Date endsAt,int tableNumber){
-        for(int i=0;i<reservation.size();i++){
+    public static void cancelReservation(Date startAt,Date endsAt,String tableNumber){
 
+        for(int i=0;i<reservation.size();i++){
+            Reservation current=reservation.get(i);
+            if(current.tableNumber.equals(tableNumber)&&current.startAt.equals(startAt)&&current.endsAt.equals(endsAt)){
+                reservation.remove(i);
+            }
+
+        }
+    }
+    public static void modifNumberOfPeople(int numberOfPeople,String tableNumber,Date startAt,Date endsAt) {
+        boolean tableHasCapacity=false;
+        for(Table t:Table.tables){
+            if(t.tableNumber.equals(tableNumber)&&t.maxNumberOfPeople==numberOfPeople){
+                tableHasCapacity=true;
+            }
+        }
+        if(tableHasCapacity){
+            for(int i=0;i<reservation.size();i++){
+                Reservation current=reservation.get(i);
+                if(current.tableNumber.equals(tableNumber)&&current.endsAt.equals(endsAt)){
+                    reservation.get(i).numberOfPeople=numberOfPeople;
+                }
+            }
+        }
+        else{
+            Scanner scan=new Scanner(System.in);
+            System.out.println("Enter a free table number : ");
+
+            ArrayList<Table> freeTables=getFreeTables(numberOfPeople,startAt,endsAt);
+            for(int i=0;i<freeTables.size();i++){
+                System.out.println(freeTables.get(i));
+            }
+            String tableN=scan.nextLine();
+            for(Reservation r:reservation){
+                if(r.tableNumber.equals(tableNumber)&&r.endsAt.equals(endsAt)&&r.startAt.equals(startAt)){
+                    r.tableNumber= tableN;
+                }
+            }
         }
     }
 
