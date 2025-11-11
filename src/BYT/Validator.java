@@ -25,15 +25,42 @@ public class Validator {
         return value;
     }
 
+    public static long negativeNumberEntered(long value) throws IllegalArgumentException {
+        if (value < 0) {
+            throw new IllegalArgumentException("Value can not be negative!");
+        }
+        return value;
+    }
+
+    public static long validateSalary(long salary) throws IllegalArgumentException {
+        if(salary <= 0) {
+            throw new IllegalArgumentException("Salary must be positive");
+        }
+        return salary;
+    }
+
+    public static long validateNonZeroPhysicalAttribute(long amount) throws IllegalArgumentException {
+        if(amount <= 0) {
+            throw new IllegalArgumentException("Physical attributes of items (volumes, weights) must be positive");
+        }
+        return amount;
+    }
+
     public static String validateOptionalEmail(String email) throws IllegalArgumentException {
         if (email == null) return null;
 
         String trimmedEmail = email.trim();
         if (trimmedEmail.isEmpty()) return null;
-        if (!trimmedEmail.contains("@")) {
-            throw new IllegalArgumentException("Email address is invalid, include'@ symbol.");
+
+        // Email validation regex from RFC5322
+        // (https://www.rfc-editor.org/rfc/pdfrfc/rfc5322.txt.pdf)
+        String emailRegexPattern = "^[a-zA-Z0-9_!#$%&'*+/=?``{|}~^.-]+@[a-zA-Z0-9.-]+$";
+
+        if (email.matches(emailRegexPattern)) {
+            return trimmedEmail;
+        }else{
+            throw new IllegalArgumentException("Invalid email format");
         }
-        return trimmedEmail;
     }
 
 

@@ -3,13 +3,12 @@ package BYT;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class Order implements Serializable {
     // TotalPrice - get method that calculates or an attribute that's calculated during creation?
-    public LocalDateTime date;
-    public OrderStatus status;
+    private LocalDateTime date;
+    private OrderStatus status;
     private static List<Order> extent = new ArrayList<>();
 
     public Order(){
