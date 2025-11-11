@@ -25,6 +25,27 @@ public class Validator {
         return value;
     }
 
+    public static long negativeNumberEntered(long value) throws IllegalArgumentException {
+        if (value < 0) {
+            throw new IllegalArgumentException("Value can not be negative!");
+        }
+        return value;
+    }
+
+    public static long validateSalary(long salary) throws IllegalArgumentException {
+        if(salary <= 0) {
+            throw new IllegalArgumentException("Salary must be positive");
+        }
+        return salary;
+    }
+
+    public static long validateNonZeroPhysicalAttribute(long amount) throws IllegalArgumentException {
+        if(amount <= 0) {
+            throw new IllegalArgumentException("Physical attributes of items (volumes, weights) must be positive");
+        }
+        return amount;
+    }
+
     public static String validateOptionalEmail(String email) throws IllegalArgumentException {
         if (email == null) return null;
 

@@ -1,8 +1,22 @@
 package BYT;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public class Normal {
-    // maybe not the best data type, could be replaced with some more special type?
-    public List<String> meatTypes;
+    private final List<String> meatTypes; // [0..*]
+
+    public Normal() {
+        this.meatTypes = new ArrayList<>();
+    }
+
+    public Collection<String> getMeatTypes() {
+        return Collections.unmodifiableCollection(meatTypes);
+    }
+
+    public void addMeatType(String meatType) {
+        this.meatTypes.add(meatType);
+    }
 }
