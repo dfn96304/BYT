@@ -2,6 +2,8 @@ package BYT;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import static BYT.Validator.validateAttributes;
@@ -33,8 +35,8 @@ public class Person implements Serializable {
         return new Person(firstName, lastName, phoneNumber, email);
     }
 
-    public static List<Person> getExtent() {
-        return extent;
+    public static Collection<Person> getExtent() {
+        return Collections.unmodifiableList(extent);
     }
 
     public String getFirstName() {
