@@ -1,5 +1,17 @@
 package BYT;
 
 public class Ingredient {
-    public String name;
+    private String name;
+
+    public Ingredient(String name) {
+        this.name = Validator.validateAttributes(name);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = Validator.validateAttributes(name);
+    }
 }

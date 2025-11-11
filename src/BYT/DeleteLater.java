@@ -33,7 +33,7 @@ public class DeleteLater {
         Calendar cal2 = Calendar.getInstance();
         cal2.add(Calendar.DAY_OF_YEAR, 2);
         Date endDate = cal2.getTime();
-        Customer c1=new Customer(1);
+        Customer c1=new Customer("1", "1,","222", "",2);
 
         Reservation.createReservation(startDate,endDate,c1,3);
         Reservation.createReservation(startDate,endDate,c1,2);
