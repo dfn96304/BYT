@@ -1,4 +1,4 @@
-package BYT;
+package BYT.Tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -8,6 +8,9 @@ import java.time.LocalDate;
 import java.util.List;
 
 import BYT.Helpers.Extents;
+import BYT.Menu;
+import BYT.MenuStatus;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -80,7 +83,7 @@ public class MenuTest {
 
         assertEquals(1, extent().size(), "Constructor should register in extent");
         assertSame(m, extent().get(0), "The created instance should be in extent");
-        assertEquals(MenuStatus.CURRENTLYVALID, m.getMenuStatus(), "Today..today is currently valid");
+        Assertions.assertEquals(MenuStatus.CURRENTLYVALID, m.getMenuStatus(), "Today..today is currently valid");
     }
 
     @Test

@@ -1,5 +1,6 @@
-package BYT;
+package BYT.Tests;
 
+import BYT.Normal;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
