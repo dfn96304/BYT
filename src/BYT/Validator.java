@@ -57,7 +57,7 @@ public class Validator {
         if (email == null) return null;
 
         String trimmedEmail = email.trim();
-        if (trimmedEmail.isEmpty()) return null;
+        if (trimmedEmail.isEmpty()) throw new IllegalArgumentException("If present, Email cannot be empty. Null should be used to mark no Email");
 
         // Email validation regex from RFC5322
         // (https://www.rfc-editor.org/rfc/pdfrfc/rfc5322.txt.pdf)
