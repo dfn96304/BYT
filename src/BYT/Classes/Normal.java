@@ -1,4 +1,4 @@
-package BYT;
+package BYT.Classes;
 
 import java.util.ArrayList;
 import java.util.Collection;

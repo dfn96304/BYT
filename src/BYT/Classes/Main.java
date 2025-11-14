@@ -1,4 +1,4 @@
-package BYT;
+package BYT.Classes;
 
 import BYT.Helpers.Extents;
 
