@@ -3,10 +3,11 @@ package BYT;
 import java.util.ArrayList;
 
 public class Table {
-    public String tableNumber; // tableNumber could be "A123" etc.
-    public int maxNumberOfPeople;
-    ;
-    public static ArrayList<Table> tables=new ArrayList<Table>();
+    private String tableNumber; // tableNumber could be "A123" etc.
+    private int maxNumberOfPeople;
+    
+    public static ArrayList<Table> tables = new ArrayList<Table>();
+    
     public Table(String tableNumber,int maxNumberOfPeople) {
         this.tableNumber = tableNumber;
         this.maxNumberOfPeople = maxNumberOfPeople;
