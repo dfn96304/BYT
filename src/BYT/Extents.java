@@ -10,8 +10,21 @@ public final class Extents {
     private static final Path FILE = Path.of("extents.bin");
 
     public static final Class<?>[] OWNERS = {
+            Chef.class,
+            Customer.class,
+            Drink.class,
+            Employee.class,
+            Food.class,
+            Ingredient.class,
+            Menu.class,
+            MenuItem.class,
+            Normal.class,
+            Order.class,
             Person.class,
-            Menu.class
+            Reservation.class,
+            Table.class,
+            Vegan.class,
+            Waiter.class,
     };
 
     public static void saveAll() throws IOException {
