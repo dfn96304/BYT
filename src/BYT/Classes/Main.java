@@ -1,13 +1,13 @@
-package BYT;
+package BYT.Classes;
+
+import BYT.Helpers.Extents;
 
 import java.time.LocalDate;
-import java.util.Calendar;
-import java.util.Date;
 
 // main() for testing purposes (not a unit test, not part of the assignment)
 public class Main {
 
-    public static void test1() {
+    /*public static void test1() {
         for(int i=0;i<Table.tables.size();i++){
             Table.tables.remove(i);
         }
@@ -48,7 +48,7 @@ public class Main {
         for(Reservation r: Reservation.reservation){
             System.out.println(r);
         }
-    }
+    }*/
     
     public static void test2() {
         try {

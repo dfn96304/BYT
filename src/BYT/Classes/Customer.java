@@ -1,12 +1,18 @@
-package BYT;
+package BYT.Classes;
 
+import BYT.Helpers.Validator;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Customer extends Person {
+    private static final List<Customer> extent = new ArrayList<>();
     private long loyaltyPoints;
 
     public Customer(String firstName, String lastName, String phoneNumber, String email, long loyaltyPoints) {
         super(firstName, lastName, phoneNumber, email);
         this.loyaltyPoints = Validator.negativeNumberEntered(loyaltyPoints);
+        extent.add(this);
     }
 
     public long getLoyaltyPoints() {
@@ -22,5 +28,12 @@ public class Customer extends Person {
             throw new IllegalArgumentException("Added number of loyalty points must be greater than 0.");
         }
         this.loyaltyPoints += add;
+    }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "loyaltyPoints=" + loyaltyPoints +
+                '}';
     }
 }

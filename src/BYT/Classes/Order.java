@@ -1,4 +1,4 @@
-package BYT;
+package BYT.Classes;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -6,10 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Order implements Serializable {
-    // TotalPrice - get method that calculates or an attribute that's calculated during creation?
+    private static List<Order> extent = new ArrayList<>();
+    //private long totalPrice; // derived
     private LocalDateTime date;
     private OrderStatus status;
-    private static List<Order> extent = new ArrayList<>();
 
     public Order(){
         this.date = LocalDateTime.now();
@@ -41,7 +41,7 @@ public class Order implements Serializable {
         this.status = OrderStatus.SERVED;
     }
 
-
+    // TotalPrice - get method that calculates or an attribute that's calculated during creation?
     // TODO: Will be implemented when Menu and MenuItem are done
     public double getFinalPrice() {
         double totalPrice = 0.0;
@@ -49,5 +49,11 @@ public class Order implements Serializable {
         return totalPrice;
     }
 
-
+    @Override
+    public String toString() {
+        return "Order{" +
+                "date=" + date +
+                ", status=" + status +
+                '}';
+    }
 }

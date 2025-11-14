@@ -1,21 +1,24 @@
-package BYT;
+package BYT.Classes;
+
+import BYT.Helpers.Validator;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MenuItem {
+    private static final List<MenuItem> extent = new ArrayList<>();
+
     private String name;
     private String description;
     private long price;
 
-    // private NormalOrVegan normalOrVegan; (abstract class?)
-    private Normal normal;
-    private Vegan vegan;
-
-    private Food food;
-    private Drink drink;
+    // Normal, Vegan; Food, Drink = multi-aspect inheritance
 
     public MenuItem(String name, String description, long price) {
         this.name = name;
         this.description = Validator.validateAttributes(description);
         this.price = price;
+        extent.add(this);
     }
 
     public String getName() {
@@ -40,5 +43,14 @@ public class MenuItem {
 
     public void setPrice(long price) {
         this.price = price;
+    }
+
+    @Override
+    public String toString() {
+        return "MenuItem{" +
+                "name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", price=" + price +
+                '}';
     }
 }

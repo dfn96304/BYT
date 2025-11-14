@@ -1,4 +1,4 @@
-package BYT;
+package BYT.Classes;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -6,8 +6,8 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import static BYT.Validator.validateAttributes;
-import static BYT.Validator.validateOptionalEmail;
+import static BYT.Helpers.Validator.validateAttributes;
+import static BYT.Helpers.Validator.validateOptionalEmail;
 
 public class Person implements Serializable {
     private String firstName;
@@ -68,4 +68,14 @@ public class Person implements Serializable {
     }
 
     public void setEmail(String email) { this.email = validateOptionalEmail(email); }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
 }

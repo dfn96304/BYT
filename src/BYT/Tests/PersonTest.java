@@ -1,9 +1,10 @@
-package BYT;
+package BYT.Tests;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.lang.reflect.Field;
 import java.util.List;
 
+import BYT.Classes.Person;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -28,7 +29,6 @@ public class PersonTest {
     void setUp() {
         clearExtent();
     }
-
 
     @Test
     void findOrCreateCreatesNewPersonWhenNotFound() {
