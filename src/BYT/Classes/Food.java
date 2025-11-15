@@ -2,11 +2,10 @@ package BYT.Classes;
 
 import BYT.Helpers.Validator;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Food extends MenuItem implements Serializable {
+public class Food extends MenuItem {
     private static final List<Food> extent = new ArrayList<>();
     private long foodWeight;
 

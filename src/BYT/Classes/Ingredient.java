@@ -2,11 +2,10 @@ package BYT.Classes;
 
 import BYT.Helpers.Validator;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Ingredient implements Serializable {
+public class Ingredient {
     private static final List<Ingredient> extent = new ArrayList<>();
     private String name;
 

@@ -1,6 +1,5 @@
 package BYT.Classes;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
@@ -10,7 +9,7 @@ import java.util.Scanner;
 // !
 // Scanner
 // !
-public class Reservation implements Serializable {
+public class Reservation {
     private static List<Reservation> extent = new ArrayList<>();
     private LocalDate startAt;
     private LocalDate endsAt;

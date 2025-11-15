@@ -1,9 +1,11 @@
 package BYT.Classes;
 
-import java.io.Serializable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
-public class Normal extends MenuItem implements Serializable {
+public class Normal extends MenuItem {
     private static final List<Normal> extent = new ArrayList<>();
     private final List<String> meatTypes; // [0..*]
 
@@ -19,13 +21,5 @@ public class Normal extends MenuItem implements Serializable {
 
     public void addMeatType(String meatType) {
         this.meatTypes.add(meatType);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Normal normal = (Normal) o;
-        return Objects.equals(meatTypes, normal.meatTypes);
     }
 }

@@ -1,19 +1,33 @@
 package BYT.Tests;
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.lang.reflect.Field;
+import java.util.List;
+
 import BYT.Classes.Person;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class PersonTest extends TestBase<Person> {
+public class PersonTest {
 
-    protected PersonTest() {
-        super(Person.class);
+    @SuppressWarnings("unchecked")
+    private static List<Person> extent() {
+        try {
+            Field f = Person.class.getDeclaredField("extent");
+            f.setAccessible(true);
+            return (List<Person>) f.get(null);
+        } catch (ReflectiveOperationException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private static void clearExtent() {
+        extent().clear();
     }
 
     @BeforeEach
     void setUp() {
-        clearExtentInMemoryList();
+        clearExtent();
     }
 
     @Test
@@ -73,8 +87,8 @@ public class PersonTest extends TestBase<Person> {
     void constructorEmailValidationAllowsNullAndEmpty() {
         Person p1 = new Person("A", "B", "123-456-789", null);
         assertNull(p1.getEmail());
-        Person p2 = new Person("C", "D", "987-654-321", "a@gmail.com");
-        assertEquals(p2.getEmail(), "a@gmail.com", "Email attribute should match");
+        Person p2 = new Person("C", "D", "987-654-321", "   ");
+        assertNull(p2.getEmail(), "Whitespace email should be treated as null");
         assertEquals(2, extent().size(), "Both valid cases should be added to extent");
     }
 }
