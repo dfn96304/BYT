@@ -1,7 +1,6 @@
 package BYT.Tests;
 
-import BYT.Classes.Normal;
-import BYT.Helpers.Extents;
+import BYT.Classes.MenuItem.Normal;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

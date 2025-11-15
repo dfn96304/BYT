@@ -1,4 +1,4 @@
-package BYT.Classes;
+package BYT.Classes.MenuItem;
 
 import java.io.Serializable;
 import java.util.*;

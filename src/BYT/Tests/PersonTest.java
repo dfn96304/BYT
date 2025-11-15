@@ -1,7 +1,6 @@
 package BYT.Tests;
 import static org.junit.jupiter.api.Assertions.*;
-
-import BYT.Classes.Person;
+import BYT.Classes.Person.Person;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

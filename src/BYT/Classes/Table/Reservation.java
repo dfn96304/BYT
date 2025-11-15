@@ -1,4 +1,4 @@
-package BYT.Classes;
+package BYT.Classes.Table;
 
 import java.io.Serializable;
 import java.time.LocalDate;
