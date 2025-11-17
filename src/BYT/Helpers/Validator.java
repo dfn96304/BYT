@@ -104,12 +104,12 @@ public class Validator {
         ^ – start of string
         \\+ – literal +
         [1-9] – country code first digit can’t start with 0
-        \\d{6,14} – 3 to 49 more digits (so total 4–50 digits)
+        \\d{3,49} – 3 to 49 more digits (so total 4–50 digits)
         $ – end of string
          */
         String phoneRegexPattern = "^\\+[1-9]\\d{3,49}$";
 
-        if (phoneNumber.matches(phoneRegexPattern)) {
+        if (trimmedPhoneNumber.matches(phoneRegexPattern)) {
             return trimmedPhoneNumber;
         }else{
             throw new IllegalArgumentException("Invalid phone number");
