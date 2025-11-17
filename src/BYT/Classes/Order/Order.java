@@ -43,10 +43,25 @@ public class Order implements Serializable {
 
     // TotalPrice - get method that calculates or an attribute that's calculated during creation?
     // TODO: Will be implemented when Menu and MenuItem are done
-    public double getFinalPrice() {
+    public double getTotalPrice() {
         double totalPrice = 0.0;
 
         return totalPrice;
+    }
+
+    public LocalDateTime getDate() {
+        return date;
+    }
+
+    // no setter for date
+    // we assume that date is supposed to be a historical record of when the order was entered
+
+    public OrderStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(OrderStatus status) {
+        this.status = status;
     }
 
     @Override

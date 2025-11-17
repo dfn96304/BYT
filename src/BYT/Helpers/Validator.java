@@ -50,6 +50,16 @@ public class Validator {
         return salary;
     }
 
+    public static long validatePrice(long price) throws IllegalArgumentException {
+        if(price < 0) {
+            throw new IllegalArgumentException("Price can not be negative");
+        }
+        if(price == 0){
+            throw new IllegalArgumentException("Price can not be zero");
+        }
+        return price;
+    }
+
     public static long validateBaseSalary(long baseSalary) throws IllegalArgumentException {
         if (baseSalary <= 0) {
             throw new IllegalArgumentException("Salary must be positive");
@@ -82,6 +92,29 @@ public class Validator {
         }
     }
 
+    public static String validatePhoneNumber(String phoneNumber) throws IllegalArgumentException {
+        if (phoneNumber == null) throw new IllegalArgumentException("Phone number can not be null");
+
+        // delete spaces or - for validation and storage
+        String trimmedPhoneNumber = phoneNumber.replaceAll("\\s+", "").replaceAll("-+", "");
+        if(trimmedPhoneNumber.isEmpty())
+            throw new IllegalArgumentException("Phone number cannot be empty");
+
+        /*
+        ^ – start of string
+        \\+ – literal +
+        [1-9] – country code first digit can’t start with 0
+        \\d{3,49} – 3 to 49 more digits (so total 4–50 digits)
+        $ – end of string
+         */
+        String phoneRegexPattern = "^\\+[1-9]\\d{3,49}$";
+
+        if (trimmedPhoneNumber.matches(phoneRegexPattern)) {
+            return trimmedPhoneNumber;
+        }else{
+            throw new IllegalArgumentException("Invalid phone number");
+        }
+    }
 
     public static String validateAttributes(String value) throws IllegalArgumentException {
         if (value == null || value.trim().isEmpty()) {

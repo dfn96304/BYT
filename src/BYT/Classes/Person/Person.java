@@ -6,8 +6,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import static BYT.Helpers.Validator.validateAttributes;
-import static BYT.Helpers.Validator.validateOptionalEmail;
+import static BYT.Helpers.Validator.*;
 
 public class Person implements Serializable {
     private String firstName;
@@ -18,7 +17,7 @@ public class Person implements Serializable {
 
     public Person(String firstName, String lastName, String phoneNumber, String email) {
         this.email = validateOptionalEmail(email);
-        this.phoneNumber = validateAttributes(phoneNumber);
+        this.phoneNumber = validatePhoneNumber(phoneNumber);
         this.lastName = validateAttributes(lastName);
         this.firstName = validateAttributes(firstName);
         extent.add(this);
@@ -31,7 +30,7 @@ public class Person implements Serializable {
                 return person;
             }
         }
-        System.out.println("Person is not in the system!\nCreating a new Person");
+        //System.out.println("Person is not in the system!\nCreating a new Person");
         return new Person(firstName, lastName, phoneNumber, email);
     }
 
@@ -60,7 +59,7 @@ public class Person implements Serializable {
     }
 
     public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = validateAttributes(phoneNumber);
+        this.phoneNumber = validatePhoneNumber(phoneNumber);
     }
 
     public String getEmail() {

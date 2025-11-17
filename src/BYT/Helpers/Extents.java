@@ -39,7 +39,7 @@ public final class Extents {
 
     public static void loadAll() throws IOException, ClassNotFoundException {
         try {
-            ExtentIO.loadAll(FILE.toString());
+            ExtentIO.loadAll(FILE.toString(), OWNERS);
         } catch (NoSuchFileException e) {
             System.err.println("WARNING: extent file not found. Extents will be empty.");
         } catch (ClassNotFoundException e) {

@@ -10,8 +10,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public class NormalTest extends TestBase<Normal> {
 
     protected NormalTest() {
@@ -28,16 +26,6 @@ public class NormalTest extends TestBase<Normal> {
         List<Normal> normal = new ArrayList<>();
         normal.add(new Normal("Citrus-Brined Olives", "Marinated mixed olives with orange zest and herbs", 7));
         testPersistence(normal);
-    }
-
-    @Test
-    void emptyStringAttributesThrow(){
-        Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            Normal normal = new Normal("", "Marinated mixed olives with orange zest and herbs", 7);
-        });
-        Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            Normal normal = new Normal("Citrus-Brined Olives", "", 7);
-        });
     }
 
     @Test

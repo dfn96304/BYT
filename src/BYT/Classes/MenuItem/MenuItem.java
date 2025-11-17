@@ -5,6 +5,7 @@ import BYT.Helpers.Validator;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class MenuItem implements Serializable {
     private static final List<MenuItem> extent = new ArrayList<>();
@@ -18,7 +19,7 @@ public class MenuItem implements Serializable {
     public MenuItem(String name, String description, long price) {
         this.name = Validator.validateAttributes(name);
         this.description = Validator.validateAttributes(description);
-        this.price = price;
+        this.price = Validator.validatePrice(price);
         extent.add(this);
     }
 
@@ -53,5 +54,13 @@ public class MenuItem implements Serializable {
                 ", description='" + description + '\'' +
                 ", price=" + price +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MenuItem menuItem = (MenuItem) o;
+        return price == menuItem.price && Objects.equals(name, menuItem.name) && Objects.equals(description, menuItem.description);
     }
 }
