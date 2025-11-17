@@ -18,7 +18,7 @@ public class ReservationTest extends TestBase<Reservation> {
     private Customer testCustomer;
     private Table table1;
     private Table table2;
-
+    private TestBase<Table> tableTestBase = new TestBase<>(Table.class);
     protected ReservationTest() {
         super(Reservation.class);
     }
@@ -27,10 +27,11 @@ public class ReservationTest extends TestBase<Reservation> {
     @BeforeEach
     void setUp() {
         clearExtentInMemoryList();
+        tableTestBase.clearExtentInMemoryList();
 
-        Customer testCustomer = new Customer("A", "B", "+48111222333", "t@u.com", 0);
-        table1 = new Table("T1", 4);
-        table2 = new Table("T2", 8);
+        this.testCustomer = new Customer("A", "B", "+48111222333", "t@u.com", 0);
+        this.table1 = new Table("T1", 4);
+        this.table2 = new Table("T2", 8);
     }
 
     @Test
@@ -39,7 +40,6 @@ public class ReservationTest extends TestBase<Reservation> {
         ArrayList<Table> smallGroup = Reservation.getFreeTables(3, TODAY, TODAY);
         assertEquals(1, smallGroup.size(), "Should only return 1 free table (T2)");
         assertEquals(table2.getTableNumber(), smallGroup.get(0).getTableNumber());
-
         ArrayList<Table> largeGroup = Reservation.getFreeTables(5, TODAY, TODAY);
         assertEquals(1, largeGroup.size(), "Should only return 1 free table (T2)");
     }
@@ -73,5 +73,17 @@ public class ReservationTest extends TestBase<Reservation> {
                 () -> Reservation.createReservation(TODAY, TODAY, testCustomer, 4, selectedTable),
                 "Attempting to double-book the same table/time must fail with an IllegalArgumentException.");
         assertEquals(1, extent().size(), "Extent size must remain 1 after a failed booking attempt.");
+    }
+
+    @Test
+    void createReservation_throwsWhenTableExceedsCapacity() {
+        String selectedTable = table1.getTableNumber();
+        assertThrows(IllegalArgumentException.class,
+                () -> Reservation.createReservation(TODAY, TODAY, testCustomer,
+                        5,
+                        selectedTable),
+                "Booking must fail if group size exceeds table capacity.");
+
+        assertEquals(0, extent().size(), "Extent must be empty on validation failure.");
     }
 }

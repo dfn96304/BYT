@@ -77,7 +77,6 @@ public class Reservation implements Serializable {
         if (!isAvailable) throw new IllegalArgumentException("The selected table (" + selectedTableNumber +
                 ") is not available for the given time, date, or group size.");;
         Reservation newReservation = new Reservation(startAt, endsAt, customer, selectedTableNumber, numberOfPeople);
-        extent.add(newReservation);
         return newReservation;
     }
 
