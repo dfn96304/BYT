@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 // !
 // Scanner
@@ -54,21 +55,32 @@ public class Reservation implements Serializable {
         return freeTables;
     }
 
-    public static void createReservation(LocalDate startAt, LocalDate endsAt, Customer customer, int numberOfPeople) {
-        ArrayList<Table> freeTables = getFreeTables(numberOfPeople, startAt, endsAt);
-        int i = 0;
+//    public static void createReservation(LocalDate startAt, LocalDate endsAt, Customer customer, int numberOfPeople) {
+//        ArrayList<Table> freeTables = getFreeTables(numberOfPeople, startAt, endsAt);
+//        int i = 0;
+//
+//        for (Table t : freeTables) {
+//            System.out.println(i + "_" + t);
+//            i++;
+//        }
+//        Scanner sc = new Scanner(System.in);
+//        System.out.println("Enter a free table : ");
+//        int index = sc.nextInt();
+//        extent.add(new Reservation(startAt, endsAt, customer, freeTables.get(index).getTableNumber(), numberOfPeople));
+//    }
 
-        for (Table t : freeTables) {
-            System.out.println(i + "_" + t);
-            i++;
-        }
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Enter a free table : ");
-        int index = sc.nextInt();
-        extent.add(new Reservation(startAt, endsAt, customer, freeTables.get(index).getTableNumber(), numberOfPeople));
+    public static Reservation createReservation(LocalDate startAt, LocalDate endsAt, Customer customer,
+                                                int numberOfPeople, String selectedTableNumber) {
+        List<Table> freeTables = getFreeTables(numberOfPeople, startAt, endsAt);
+        boolean isAvailable = freeTables.stream()
+                .anyMatch(table -> table.getTableNumber().equals(selectedTableNumber));
+        if (!isAvailable) throw new IllegalArgumentException("The selected table (" + selectedTableNumber +
+                ") is not available for the given time, date, or group size.");;
+        Reservation newReservation = new Reservation(startAt, endsAt, customer, selectedTableNumber, numberOfPeople);
+        return newReservation;
     }
 
-    public static void cancelReservation(Date startAt, Date endsAt, String tableNumber) {
+    public static void cancelReservation(LocalDate startAt, LocalDate endsAt, String tableNumber) {
 
         for (int i = 0; i < extent.size(); i++) {
             Reservation current = extent.get(i);
