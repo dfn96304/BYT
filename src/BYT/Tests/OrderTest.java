@@ -2,7 +2,6 @@ package BYT.Tests;
 
 import BYT.Classes.Order.Order;
 import BYT.Classes.Order.OrderStatus;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
