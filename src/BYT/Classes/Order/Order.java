@@ -49,6 +49,21 @@ public class Order implements Serializable {
         return totalPrice;
     }
 
+    public LocalDateTime getDate() {
+        return date;
+    }
+
+    // no setter for date
+    // we assume that date is supposed to be a historical record of when the order was entered
+
+    public OrderStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(OrderStatus status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
         return "Order{" +
