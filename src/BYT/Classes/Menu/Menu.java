@@ -31,7 +31,7 @@ public class Menu implements Serializable {
     private LocalDate endDate;
 
     public Menu(LocalDate releaseDate, LocalDate endDate) throws IllegalArgumentException {
-        Validator.validateDate(releaseDate, endDate);
+        Validator.validateMenuDate(releaseDate, endDate);
 
         this.releaseDate = releaseDate;
         this.endDate = endDate;
@@ -73,7 +73,7 @@ public class Menu implements Serializable {
     }
 
     public void setReleaseDate(LocalDate releaseDate) {
-        Validator.validateDate(releaseDate, this.endDate);
+        Validator.validateMenuDate(releaseDate, this.endDate);
 
         this.releaseDate = releaseDate;
     }
@@ -83,7 +83,7 @@ public class Menu implements Serializable {
     }
 
     public void setEndDate(LocalDate endDate) {
-        Validator.validateDate(this.releaseDate, endDate);
+        Validator.validateMenuDate(this.releaseDate, endDate);
 
         this.endDate = endDate;
     }
