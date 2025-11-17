@@ -93,10 +93,10 @@ public class Validator {
     }
 
     public static String validatePhoneNumber(String phoneNumber) throws IllegalArgumentException {
-        if (phoneNumber == null) return null;
+        if (phoneNumber == null) throw new IllegalArgumentException("Phone number can not be null");
 
-        // delete spaces for validation and storage
-        String trimmedPhoneNumber = phoneNumber.replaceAll("\\s+", "");
+        // delete spaces or - for validation and storage
+        String trimmedPhoneNumber = phoneNumber.replaceAll("\\s+", "").replaceAll("-+", "");
         if(trimmedPhoneNumber.isEmpty())
             throw new IllegalArgumentException("Phone number cannot be empty");
 

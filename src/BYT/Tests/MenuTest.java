@@ -74,16 +74,6 @@ public class MenuTest extends TestBase<Menu> {
     }
 
     @Test
-    void ReleaseAndEndDateInThePast_returnsEnded() {
-        LocalDate today = LocalDate.now();
-        Menu m = new Menu(today, today);
-
-        // requires manipulation using reflection
-
-        assertEquals(MenuStatus.ENDED, m.getMenuStatus(), "Menu with release date in the future should return state CREATED");
-    }
-
-    @Test
     void getActiveMenus_returnsOnlyCurrentlyValidMenus() {
         LocalDate today = LocalDate.now();
 

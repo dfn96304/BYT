@@ -5,13 +5,13 @@ import BYT.Helpers.Validator;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Vegan extends MenuItem implements Serializable {
     private static List<Vegan> extent = new ArrayList<>();
     private String certificationID;
     // "ABPL2814394243"
     // A certificationID can in theory be any combination arbitrary numbers and letters
-
 
     public Vegan(String name, String description, long price, String certificationID) {
         super(name, description, price);
@@ -32,5 +32,13 @@ public class Vegan extends MenuItem implements Serializable {
         return "Vegan{" +
                 "certificationID='" + certificationID + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Vegan vegan = (Vegan) o;
+        return Objects.equals(certificationID, vegan.certificationID);
     }
 }
