@@ -79,4 +79,6 @@ public class Main {
         //test1();
         //test2();
     }
+
+    // TODO: Customer, Chef, Waiter, Order, Food, Drink, Reservation, Table, Normal, Ingredient
 }

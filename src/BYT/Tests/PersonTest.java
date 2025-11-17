@@ -76,4 +76,5 @@ public class PersonTest extends TestBase<Person> {
         assertEquals(p2.getEmail(), "a@gmail.com", "Email attribute should match");
         assertEquals(2, extent().size(), "Both valid cases should be added to extent");
     }
+
 }

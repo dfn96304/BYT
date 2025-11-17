@@ -31,6 +31,18 @@ public class Customer extends Person implements Serializable {
         this.loyaltyPoints += add;
     }
 
+    public static Customer findOrCreate(String firstName, String lastName, String phoneNumber, String email, long initialLoyaltyPoints) {
+        for (Customer customer : extent) {
+            if (customer.getPhoneNumber().equals(phoneNumber)) {
+                System.out.println("Customer has been found!");
+                return customer;
+            }
+        }
+
+//        System.out.println("Customer is not in the system!\nCreating a new Customer");
+        return new Customer(firstName, lastName, phoneNumber, email, initialLoyaltyPoints);
+    }
+
     @Override
     public String toString() {
         return "Customer{" +
