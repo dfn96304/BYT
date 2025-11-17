@@ -1,6 +1,5 @@
 package BYT.Tests;
 
-import BYT.Classes.Normal;
 import BYT.Helpers.Extents;
 
 import java.io.IOException;

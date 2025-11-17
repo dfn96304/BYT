@@ -1,5 +1,7 @@
 package BYT.Classes.Table;
 
+import BYT.Classes.Person.Customer;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
