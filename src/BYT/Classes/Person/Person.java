@@ -30,7 +30,7 @@ public class Person implements Serializable {
                 return person;
             }
         }
-        //System.out.println("Person is not in the system!\nCreating a new Person");
+        System.out.println("Person is not in the system!\nCreating a new Person");
         return new Person(firstName, lastName, phoneNumber, email);
     }
 

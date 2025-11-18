@@ -13,7 +13,7 @@ public class Table implements Serializable {
     private int maxNumberOfPeople;
 
     public Table(String tableNumber, int maxNumberOfPeople) {
-        this.tableNumber = tableNumber;
+        this.tableNumber = Validator.validateAttributes(tableNumber);
         this.maxNumberOfPeople = Validator.negativeNumberEntered(maxNumberOfPeople);
         extent.add(this);
     }
@@ -27,7 +27,7 @@ public class Table implements Serializable {
     }
 
     public void setTableNumber(String tableNumber) {
-        this.tableNumber = tableNumber;
+        this.tableNumber = Validator.validateAttributes(tableNumber);
     }
 
     public int getMaxNumberOfPeople() {
@@ -35,7 +35,7 @@ public class Table implements Serializable {
     }
 
     public void setMaxNumberOfPeople(int maxNumberOfPeople) {
-        this.maxNumberOfPeople = maxNumberOfPeople;
+        this.maxNumberOfPeople = Validator.negativeNumberEntered(maxNumberOfPeople);
     }
 
     @Override
