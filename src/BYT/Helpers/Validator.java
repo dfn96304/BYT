@@ -2,13 +2,21 @@ package BYT.Helpers;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class Validator {
 
-    public static void validateDate(LocalDate releaseDate, LocalDate endDate) throws IllegalArgumentException { // I think IllegalArgumentException fits better. DateTimeException is for errors when manipulating date objects
-        if (releaseDate == null || endDate == null) {
+    public static void validateMenuDate(LocalDate releaseDate, LocalDate endDate) throws IllegalArgumentException {
+        validateDate(releaseDate, endDate, "releaseDate", "endDate");
+    }
+
+    public static void validateReservationDate(LocalDateTime startAt, LocalDateTime endAt) throws IllegalArgumentException {
+
+    }
+
+    private static void validateDate(LocalDate releaseDate, LocalDate endDate, String releaseDateName, String endDateName) throws IllegalArgumentException {
+        if (releaseDate == null || endDate == null)
             throw new DateTimeException("Dates must not be null");
-        }
 
         LocalDate today = LocalDate.now();
 
@@ -20,6 +28,14 @@ public class Validator {
 
         if (endDate.isBefore(releaseDate))
             throw new IllegalArgumentException("The endDate cannot be before the releaseDate. The endDate must be equal (1-day menu) or after the releaseDate.");
+    }
+
+    public static int validateNumberOfPeople(int people) throws IllegalArgumentException {
+        if(!(people > 0)){
+            throw new IllegalArgumentException("Number of people must be greater than zero");
+        }
+
+        return people;
     }
 
     public static double negativeNumberEntered(double value) throws IllegalArgumentException {

@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Menu implements Serializable {
     private static final List<Menu> extent = new ArrayList<>();
@@ -31,7 +32,7 @@ public class Menu implements Serializable {
     private LocalDate endDate;
 
     public Menu(LocalDate releaseDate, LocalDate endDate) throws IllegalArgumentException {
-        Validator.validateDate(releaseDate, endDate);
+        Validator.validateMenuDate(releaseDate, endDate);
 
         this.releaseDate = releaseDate;
         this.endDate = endDate;
@@ -73,7 +74,7 @@ public class Menu implements Serializable {
     }
 
     public void setReleaseDate(LocalDate releaseDate) {
-        Validator.validateDate(releaseDate, this.endDate);
+        Validator.validateMenuDate(releaseDate, this.endDate);
 
         this.releaseDate = releaseDate;
     }
@@ -83,7 +84,7 @@ public class Menu implements Serializable {
     }
 
     public void setEndDate(LocalDate endDate) {
-        Validator.validateDate(this.releaseDate, endDate);
+        Validator.validateMenuDate(this.releaseDate, endDate);
 
         this.endDate = endDate;
     }
@@ -94,5 +95,18 @@ public class Menu implements Serializable {
                 "releaseDate=" + releaseDate +
                 ", endDate=" + endDate +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Menu menu = (Menu) o;
+        return Objects.equals(releaseDate, menu.releaseDate) && Objects.equals(endDate, menu.endDate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(releaseDate, endDate);
     }
 }
