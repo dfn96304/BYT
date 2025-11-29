@@ -14,7 +14,7 @@ public class MenuItem implements Serializable {
     private String description;
     private long price;
 
-    private List<OrderMenuItem> orderMenuItems; // [0..*]
+    private Set<OrderMenuItem> orderMenuItems; // [0..*]
     private Menu menu;
     // Normal, Vegan; Food, Drink = multi-aspect inheritance
     private Set<Ingredient> ingredients = new HashSet<>();
@@ -59,9 +59,15 @@ public class MenuItem implements Serializable {
         this.menu = null;
     }
 
-    public List<OrderMenuItem> getOrderMenuItems() {
-        return orderMenuItems;
+    public Set<OrderMenuItem> getOrderMenuItems() {
+        return Collections.unmodifiableSet(orderMenuItems);
     }
+
+    public void addOrderMenuItem(OrderMenuItem orderMenuItem) {
+        if(orderMenuItem == null) throw new IllegalArgumentException("OrderMenuItem cannot be null");
+        orderMenuItems.add(orderMenuItem);
+    }
+
 
     public Menu getMenu() {
         return menu;
