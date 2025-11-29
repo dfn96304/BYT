@@ -3,13 +3,12 @@ package BYT.Classes.MenuItem;
 import BYT.Helpers.Validator;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class Ingredient implements Serializable {
     private static final List<Ingredient> extent = new ArrayList<>();
     private String name;
+    private Set<MenuItem> menuItems = new HashSet<>();
 
     public Ingredient(String name) {
         this.name = Validator.validateAttributes(name);
