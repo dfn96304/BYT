@@ -3,31 +3,33 @@ package BYT.Classes.Order;
 import BYT.Classes.MenuItem.MenuItem;
 import BYT.Helpers.Validator;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
 // association class converted to junction class
-public class OrderMenuItem {
-    private int lineNumber;
+public class OrderMenuItem implements Serializable {
+    //private static List<OrderMenuItem> extent = new ArrayList<>();
     private int quantity;
     private String orderNotes; // [0..1]
 
-    private Order order;
-    private MenuItem menuItem;
+    private Order order; // 1
+    private MenuItem menuItem; // 1
 
-    public OrderMenuItem(int lineNumber, int quantity, String orderNotes) {
-        // TODO: lineNumber validation
-        // some kind of static(?) attribute to track this for a given Order
-        this.lineNumber = lineNumber;
+    public OrderMenuItem(int quantity, String orderNotes, Order order, MenuItem menuItem) {
         this.quantity = Validator.validateNonZeroPhysicalAttribute(quantity);
-        this.orderNotes = Validator.validateAttributes(orderNotes);
+        this.orderNotes = Validator.validateOptionalAttributes(orderNotes);
+
+        if(order == null) throw new IllegalArgumentException("Order cannot be null");
+        this.order = order;
+        if(menuItem == null) throw new IllegalArgumentException("MenuItem cannot be null");
+        this.menuItem = menuItem;
+        menuItem.addOrderMenuItem(this);
     }
 
-    public int getLineNumber() {
-        return lineNumber;
-    }
-
-    public void setLineNumber(int lineNumber) {
-        // TODO: lineNumber validation
-        this.lineNumber = lineNumber;
-    }
+    //public int getLineNumber() {
+        //return order.getOrderMenuItems().
+    //}
 
     public int getQuantity() {
         return quantity;
