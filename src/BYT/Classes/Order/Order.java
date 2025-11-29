@@ -1,10 +1,10 @@
 package BYT.Classes.Order;
 
+import BYT.Classes.MenuItem.MenuItem;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class Order implements Serializable {
     private static List<Order> extent = new ArrayList<>();
@@ -12,12 +12,27 @@ public class Order implements Serializable {
     private LocalDateTime date;
     private OrderStatus status;
 
-    private List<OrderMenuItem> orderMenuItems; // [1..*]
+    private Set<OrderMenuItem> orderMenuItems; // [1..*]
 
-    public Order(){
+    public Order(int quantity, String orderNotes, MenuItem menuItem){
         this.date = LocalDateTime.now();
         this.status = OrderStatus.CREATED;
+
+        orderMenuItems = new HashSet<>();
+        addOrderMenuItem(quantity, orderNotes, menuItem);
+
         extent.add(this);
+    }
+
+    public Set<OrderMenuItem> getOrderMenuItems() {
+        return Collections.unmodifiableSet(orderMenuItems);
+    }
+
+    public void addOrderMenuItem(int quantity, String orderNotes, MenuItem menuItem){
+        if(status != OrderStatus.CREATED) throw new IllegalStateException("Items can be added to Orderse only when the Order is in status CREATED");
+
+        OrderMenuItem orderMenuItem = new OrderMenuItem(quantity, orderNotes, this, menuItem);
+        orderMenuItems.add(orderMenuItem);
     }
 
     public void prepare() throws IllegalStateException {
@@ -44,11 +59,12 @@ public class Order implements Serializable {
         this.status = OrderStatus.SERVED;
     }
 
-    // TotalPrice - get method that calculates or an attribute that's calculated during creation?
-    // TODO: Will be implemented when Menu and MenuItem are done
-    public double getTotalPrice() {
-        double totalPrice = 0.0;
+    public long getTotalPrice() {
+        long totalPrice = 0;
 
+        for(OrderMenuItem orderMenuItem : orderMenuItems){
+            totalPrice += orderMenuItem.getMenuItem().getPrice() * orderMenuItem.getQuantity();
+        }
         return totalPrice;
     }
 
