@@ -3,8 +3,12 @@ package BYT.Classes.Order;
 import BYT.Classes.MenuItem.MenuItem;
 import BYT.Helpers.Validator;
 
+import java.util.ArrayList;
+import java.util.List;
+
 // association class converted to junction class
 public class OrderMenuItem {
+    //private static List<OrderMenuItem> extent = new ArrayList<>();
     private int lineNumber;
     private int quantity;
     private String orderNotes; // [0..1]
