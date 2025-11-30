@@ -1,9 +1,11 @@
 package BYT.Classes.Person;
 
 import BYT.Classes.Table.Reservation;
+import BYT.Classes.Table.Table;
 import BYT.Helpers.Validator;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.*;
 
 public class Customer extends Person implements Serializable {
@@ -45,19 +47,21 @@ public class Customer extends Person implements Serializable {
         return new Customer(firstName, lastName, phoneNumber, email, initialLoyaltyPoints);
     }
 
+    // main class for controlling Customer-Reservation-Table
     public Reservation findReservationByNumber(String reservationNumber) {
         return reservationMap.get(reservationNumber);
     }
 
-    public void addReservation(String reservationNumber, Reservation reservation) {
+    public void createReservation(String reservationNumber, LocalDateTime startAt, LocalDateTime endsAt, int numberOfPeople, Table table) {
         if(reservationMap.containsKey(reservationNumber)) throw new IllegalArgumentException("A reservation with this number already exists.");
-        Validator.validateNullObjects(reservation);
-        reservationMap.put(reservationNumber, reservation);
+        Reservation reservation = new Reservation(startAt, endsAt, this, numberOfPeople, table); // takes care of Reservation extent + Table set
+        reservationMap.put(reservationNumber, reservation); // Customer map
     }
 
     public void deleteReservation(String reservationNumber) {
-        Reservation reservation = reservationMap.get(reservationNumber);
-        reservation.getTable().cancelReservation(reservation);
+        Reservation reservation = findReservationByNumber(reservationNumber);
+        reservation.deleteTable(); // takes care of Reservation extent + Table set
+        reservationMap.remove(reservationNumber); // Customer map
     }
 
     @Override
