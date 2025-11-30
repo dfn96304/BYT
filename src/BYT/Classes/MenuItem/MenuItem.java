@@ -65,14 +65,14 @@ public class MenuItem implements Serializable {
     }
 
     public void addOrderMenuItem(OrderMenuItem orderMenuItem) {
-        if(orderMenuItem == null) throw new IllegalArgumentException("OrderMenuItem cannot be null");
+        Validator.validateNullObjects(orderMenuItem);
         orderMenuItems.add(orderMenuItem);
-        // ?
+        // reverse?
     }
 
-    public void deleteOrderMenuItem(OrderMenuItem orderMenuItem) {
-        if(orderMenuItem == null) throw new IllegalArgumentException("OrderMenuItem cannot be null");
-        orderMenuItems.remove(orderMenuItem);
+    public boolean deleteOrderMenuItem(OrderMenuItem orderMenuItem) {
+        // reverse?
+        return orderMenuItems.remove(orderMenuItem);
     }
 
     public Menu getMenu() {
