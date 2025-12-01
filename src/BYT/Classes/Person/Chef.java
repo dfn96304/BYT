@@ -18,9 +18,12 @@ public class Chef extends Employee implements Serializable {
         return supervisiorCheff;
     }
 
-    public void setSupervisiorCheff(Chef supervisiorCheff) {
+    private void setSupervisiorCheff(Chef supervisiorCheff) {
         if(supervisiorCheff!=this || supervisiorCheff==null){
             this.supervisiorCheff = supervisiorCheff;
+        }
+        else{
+            throw new IllegalArgumentException("Supervisior chef already exists");
         }
 
     }
