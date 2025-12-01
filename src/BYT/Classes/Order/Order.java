@@ -1,6 +1,7 @@
 package BYT.Classes.Order;
 
 import BYT.Classes.MenuItem.MenuItem;
+import BYT.Classes.Person.Chef;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -11,6 +12,18 @@ public class Order implements Serializable {
     //private long totalPrice; // derived
     private LocalDateTime date;
     private OrderStatus status;
+    private Chef chef;
+
+    public Chef getChef() {
+        return chef;
+    }
+
+    public void setChef(Chef chef) {
+        if(chef==null && status==OrderStatus.CREATED){
+            this.chef = chef;
+        }
+
+    }
 
     private Set<OrderMenuItem> orderMenuItems; // [1..*]
 

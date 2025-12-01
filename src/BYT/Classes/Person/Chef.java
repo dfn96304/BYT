@@ -12,6 +12,18 @@ import java.util.Scanner;
 public class Chef extends Employee implements Serializable {
     private static final List<Chef> extent = new ArrayList<>();
     private ArrayList<Chef> supervisedChefs=new ArrayList<Chef>();
+    private Chef supervisiorCheff;
+
+    public Chef getSupervisiorCheff() {
+        return supervisiorCheff;
+    }
+
+    public void setSupervisiorCheff(Chef supervisiorCheff) {
+        if(supervisiorCheff!=this || supervisiorCheff==null){
+            this.supervisiorCheff = supervisiorCheff;
+        }
+
+    }
 
     public ArrayList<Chef> getSupervisedChefs() {
         return supervisedChefs;
@@ -19,6 +31,7 @@ public class Chef extends Employee implements Serializable {
     public ArrayList<Order> responsibleFor=new ArrayList<Order>();
     public void addOrderToChef(Order order)throws Exception{
         if(order.getStatus()==OrderStatus.CREATED){
+            order.setChef(this);
             order.setStatus(OrderStatus.InPREPARATION);
             this.responsibleFor.add(order);
         }else{
@@ -60,6 +73,7 @@ public class Chef extends Employee implements Serializable {
 
         if (!supervisedChefs.contains(chef)) {
             supervisedChefs.add(chef);
+            chef.setSupervisiorCheff(this);
         }
     }
 
