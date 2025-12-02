@@ -42,6 +42,8 @@ public class Reservation implements Serializable {
         if (!newTable.getReservations().contains(this)) {
             newTable.createReservation(this);
         }
+
+        customer.addReservation(customer.generateRandomReservationNumber(), this);
     }
 
     public void deleteTable() {
@@ -50,6 +52,7 @@ public class Reservation implements Serializable {
             this.table = null;
             t.cancelReservation(this);
         }
+        customer.deleteReservation(this);
         extent.remove(this);
     }
 
