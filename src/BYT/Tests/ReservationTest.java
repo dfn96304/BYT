@@ -11,8 +11,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ReservationTest extends TestBase<Reservation> {
 
@@ -36,12 +35,16 @@ public class ReservationTest extends TestBase<Reservation> {
         this.table2 = new Table("T2", 8);
     }
 
+    // persistence
+
     @Test
     void testPersistence_SavingAndLoading() throws IOException, ClassNotFoundException {
         List<Reservation> list = new ArrayList<>();
         list.add(new Reservation(NOW, NOW, testCustomer, 2, table1));
         testPersistence(list);
     }
+
+    // associations
 
     @Test
     void getFreeTables_returnsOnlyAvailableTables() {
@@ -61,6 +64,15 @@ public class ReservationTest extends TestBase<Reservation> {
     }
 
     @Test
+    void cancelReservationViaCustomer_successfulCancellation() {
+        new Reservation(NOW, NOW, testCustomer, 2, table1);
+        Reservation r2 = new Reservation(NOW.plusDays(1), NOW.plusDays(1), testCustomer, 4, table2);
+        assertEquals(2, extent().size(), "Precondition: 2 reservations exist.");
+        testCustomer.deleteReservation(r2);
+        assertEquals(1, extent().size(), "Only 1 reservation should remain in extent.");
+    }
+
+    @Test
     void cancelReservation_successfulCancellation() {
         new Reservation(NOW, NOW, testCustomer, 2, table1);
         Reservation r2 = new Reservation(NOW.plusDays(1), NOW.plusDays(1), testCustomer, 4, table2);
@@ -70,12 +82,27 @@ public class ReservationTest extends TestBase<Reservation> {
     }
 
     @Test
+    void cancelReservationViaTable_successfulCancellation() {
+        new Reservation(NOW, NOW, testCustomer, 2, table1);
+        Reservation r2 = new Reservation(NOW.plusDays(1), NOW.plusDays(1), testCustomer, 4, table2);
+        assertEquals(2, extent().size(), "Precondition: 2 reservations exist.");
+        assertEquals(2, testCustomer.getReservationMap().size(), "Precondition: 2 reservations exist in Customer.");
+        assertEquals(1, table2.getReservations().size(), "Precondition: 1 reservation exists in table2.");
+        table2.cancelReservation(r2);
+        assertEquals(1, extent().size(), "Only 1 reservation should remain in extent.");
+        assertEquals(1, testCustomer.getReservationMap().size(), "Only 1 reservation should remain in Customer.");
+        assertEquals(0, table2.getReservations().size(), "No reservations exist in table2.");
+    }
+
+    @Test
     void createReservation_successfulCreation() {
         String selectedTable = table1.getTableNumber();
         Reservation r = Reservation.createReservation(NOW, NOW, testCustomer, 4, selectedTable);
         assertEquals(1, extent().size(), "Reservation should be added to extent.");
         assertEquals(selectedTable, r.getTable().getTableNumber(), "Reservation should be linked to the correct table.");
         assertEquals(testCustomer, r.getCustomer(), "Reservation must be linked to the correct customer.");
+        assertTrue(table1.getReservations().contains(r), "Reservation must be added to the reverse association in Table.");
+        assertTrue(testCustomer.getReservationMap().containsValue(r), "Reservation must be added to the reverse association in Customer.");
         assertThrows(IllegalArgumentException.class,
                 () -> Reservation.createReservation(NOW, NOW, testCustomer, 4, selectedTable),
                 "Attempting to double-book the same table/time must fail with an IllegalArgumentException.");

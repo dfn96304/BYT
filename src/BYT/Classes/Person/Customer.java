@@ -70,6 +70,10 @@ public class Customer extends Person implements Serializable {
         reservationMap.put(reservationNumber, reservation); // Customer map
     }
 
+    public Map<String, Reservation> getReservationMap() {
+        return Collections.unmodifiableMap(reservationMap);
+    }
+
     public void addReservation(String reservationNumber, Reservation newReservation) {
         if(reservationMap.containsKey(reservationNumber)) throw new IllegalArgumentException("A reservation with this number already exists.");
         reservationMap.put(reservationNumber, newReservation);
