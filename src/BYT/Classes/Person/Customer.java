@@ -47,9 +47,21 @@ public class Customer extends Person implements Serializable {
         return new Customer(firstName, lastName, phoneNumber, email, initialLoyaltyPoints);
     }
 
-    // main class for controlling Customer-Reservation-Table
     public Reservation findReservationByNumber(String reservationNumber) {
         return reservationMap.get(reservationNumber);
+    }
+
+    public boolean containsReservation(Reservation reservation) {
+        return reservationMap.containsValue(reservation);
+    }
+
+    private static final String CHARS = "123456789abcdefghijklmnopqrstuvwxyz";
+    public String generateRandomReservationNumber(){
+        StringBuilder numberBuilder = new StringBuilder();
+        while(numberBuilder.length() < 5 || reservationMap.containsKey(numberBuilder.toString())){
+            numberBuilder.append(CHARS.charAt((int) Math.floor(Math.random() * (CHARS.length()))));
+        }
+        return numberBuilder.toString();
     }
 
     public void createReservation(String reservationNumber, LocalDateTime startAt, LocalDateTime endsAt, int numberOfPeople, Table table) {
@@ -58,10 +70,33 @@ public class Customer extends Person implements Serializable {
         reservationMap.put(reservationNumber, reservation); // Customer map
     }
 
-    public void deleteReservation(String reservationNumber) {
+    public Map<String, Reservation> getReservationMap() {
+        return Collections.unmodifiableMap(reservationMap);
+    }
+
+    public void addReservation(String reservationNumber, Reservation newReservation) {
+        if(reservationMap.containsKey(reservationNumber)) throw new IllegalArgumentException("A reservation with this number already exists.");
+        reservationMap.put(reservationNumber, newReservation);
+    }
+
+    public void deleteReservation(String reservationNumber) throws Exception {
         Reservation reservation = findReservationByNumber(reservationNumber);
+        if(reservation == null) throw new Exception("A reservation with this number does not exist");
         reservation.deleteTable(); // takes care of Reservation extent + Table set
         reservationMap.remove(reservationNumber); // Customer map
+    }
+
+    public boolean deleteReservation(Reservation reservation) {
+        if(reservationMap.containsValue(reservation)) return false;
+        boolean found = false;
+        for(Map.Entry<String, Reservation> r : reservationMap.entrySet()){
+            if(r.getValue().equals(reservation)){
+                found = true;
+                reservation.deleteTable();
+                reservationMap.remove(r.getKey());
+            }
+        }
+        return found;
     }
 
     @Override

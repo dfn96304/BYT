@@ -12,8 +12,8 @@ public class Reservation implements Serializable {
     private LocalDateTime startAt;
     private LocalDateTime endsAt;
     private int numberOfPeople;
-    private Customer customer; // 1 (mandatory), no deletion from this side
-    private Table table; // 1 (mandatory), no deletion from this side
+    private Customer customer; // 1 (mandatory)
+    private Table table; // 1 (mandatory)
 
     public Reservation(LocalDateTime startAt, LocalDateTime endsAt, Customer customer, int numberOfPeople, Table table) {
         Validator.validateReservationDate(startAt, endsAt);
@@ -42,6 +42,8 @@ public class Reservation implements Serializable {
         if (!newTable.getReservations().contains(this)) {
             newTable.createReservation(this);
         }
+
+        customer.addReservation(customer.generateRandomReservationNumber(), this);
     }
 
     public void deleteTable() {
@@ -50,6 +52,7 @@ public class Reservation implements Serializable {
             this.table = null;
             t.cancelReservation(this);
         }
+        customer.deleteReservation(this);
         extent.remove(this);
     }
 
