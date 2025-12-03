@@ -21,6 +21,8 @@ public class Order implements Serializable {
     public void setChef(Chef chef) {
         if(chef==null && status==OrderStatus.CREATED){
             this.chef = chef;
+        }else{
+            throw new IllegalArgumentException("Order status must be CREATED");
         }
 
     }
