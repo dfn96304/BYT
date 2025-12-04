@@ -1,23 +1,95 @@
 package BYT.Classes.Order;
+import BYT.Classes.Person.Waiter;
+import BYT.Classes.Person.Customer;
+import BYT.Classes.MenuItem.MenuItem;
+import BYT.Classes.Person.Chef;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class Order implements Serializable {
     private static List<Order> extent = new ArrayList<>();
     //private long totalPrice; // derived
     private LocalDateTime date;
     private OrderStatus status;
+    private Chef chef;
 
-    private List<OrderMenuItem> orderMenuItems; // [1..*]
+    public Chef getChef() {
+        return chef;
+    }
 
-    public Order(){
+    public void setChef(Chef chef) {
+        if(chef==null && status==OrderStatus.CREATED){
+            this.chef = chef;
+        }else{
+            throw new IllegalArgumentException("Order status must be CREATED");
+        }
+
+    }
+
+    private Set<OrderMenuItem> orderMenuItems; // [1..*]
+
+    private Waiter waiter;
+    private Customer customer;
+
+    public Order(int quantity, String orderNotes, MenuItem menuItem){
         this.date = LocalDateTime.now();
         this.status = OrderStatus.CREATED;
+
+        orderMenuItems = new HashSet<>();
+        createOrderMenuItem(quantity, orderNotes, menuItem);
+
         extent.add(this);
+    }
+
+    public Waiter getWaiter() {
+        return waiter;
+    }
+
+    public void setWaiter(Waiter waiter) {
+        if (this.waiter != null && this.waiter != waiter) {
+            this.waiter.removeOrder(this);
+        }
+        this.waiter = waiter;
+
+        if (waiter != null && !waiter.getOrders().contains(this)) {
+            waiter.addOrder(this);
+        }
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer newCustomer) {
+        if (this.customer != null && this.customer != newCustomer) {
+            this.customer.removeOrder(this);
+        }
+
+        this.customer = newCustomer;
+
+        if (newCustomer != null && !newCustomer.getOrders().contains(this)) {
+            newCustomer.addOrder(this);
+        }
+    }
+
+    // main class for controlling Order-OrderMenuItem-MenuItem
+    public Set<OrderMenuItem> getOrderMenuItems() {
+        return Collections.unmodifiableSet(orderMenuItems);
+    }
+
+    public void createOrderMenuItem(int quantity, String orderNotes, MenuItem menuItem){
+        if(status != OrderStatus.CREATED) throw new IllegalStateException("Items can be added to Order only when the Order is in status CREATED");
+        OrderMenuItem orderMenuItem = new OrderMenuItem(quantity, orderNotes, this, menuItem); // takes care of OrderMenuItem extent + MenuItem set
+        orderMenuItems.add(orderMenuItem); // Order set
+    }
+
+    public void deleteOrderMenuItem(OrderMenuItem orderMenuItem) throws IllegalStateException{
+        if(status != OrderStatus.CREATED) throw new IllegalStateException("Items can be removed from Order only when the Order is in status CREATED");
+        if(orderMenuItems.size() <= 1) throw new IllegalStateException("Order must have at least one MenuItem");
+        orderMenuItem.delete(); // takes care of OrderMenuItem extent + MenuItem set
+        orderMenuItems.remove(orderMenuItem); // Order set
     }
 
     public void prepare() throws IllegalStateException {
@@ -44,11 +116,12 @@ public class Order implements Serializable {
         this.status = OrderStatus.SERVED;
     }
 
-    // TotalPrice - get method that calculates or an attribute that's calculated during creation?
-    // TODO: Will be implemented when Menu and MenuItem are done
-    public double getTotalPrice() {
-        double totalPrice = 0.0;
+    public long getTotalPrice() {
+        long totalPrice = 0;
 
+        for(OrderMenuItem orderMenuItem : orderMenuItems){
+            totalPrice += orderMenuItem.getMenuItem().getPrice() * orderMenuItem.getQuantity();
+        }
         return totalPrice;
     }
 

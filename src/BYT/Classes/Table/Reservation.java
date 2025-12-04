@@ -12,18 +12,22 @@ public class Reservation implements Serializable {
     private LocalDateTime startAt;
     private LocalDateTime endsAt;
     private int numberOfPeople;
-    private Customer customer;
-    private Table table;
+    private Customer customer; // 1 (mandatory)
+    private Table table; // 1 (mandatory)
 
     public Reservation(LocalDateTime startAt, LocalDateTime endsAt, Customer customer, int numberOfPeople, Table table) {
+        this.numberOfPeople = Validator.validateNumberOfPeople(numberOfPeople, table.getMaxNumberOfPeople());
+
         Validator.validateReservationDate(startAt, endsAt);
         this.startAt = startAt;
         this.endsAt = endsAt;
-        this.numberOfPeople = Validator.validateNumberOfPeople(numberOfPeople);
-        this.customer = customer;
-        extent.add(this);
 
+        // ^ attribute assignments MUST be before the associations! hashCode()-HashSet-equals bug with tests
+
+        setCustomer(customer);
         createReservation(table);
+
+        extent.add(this);
     }
 
     public void createReservation(Table newTable) {
@@ -48,6 +52,7 @@ public class Reservation implements Serializable {
             this.table = null;
             t.cancelReservation(this);
         }
+        if(customer.containsReservation(this)) customer.deleteReservation(this);
         extent.remove(this);
     }
 
@@ -121,10 +126,13 @@ public class Reservation implements Serializable {
     }
 
     public void setCustomer(Customer customer) {
+        Validator.validateNullObjects(customer);
         this.customer = customer;
+        customer.addReservation(customer.generateRandomReservationNumber(), this);
     }
 
     public void setTable(Table table) {
+        Validator.validateNullObjects(table);
         this.table = table;
     }
 
@@ -135,7 +143,6 @@ public class Reservation implements Serializable {
     public static void setExtent(List<Reservation> extent) {
         Reservation.extent = extent;
     }
-
 
     @Override
     public String toString() {

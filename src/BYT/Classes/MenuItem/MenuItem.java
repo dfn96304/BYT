@@ -14,7 +14,7 @@ public class MenuItem implements Serializable {
     private String description;
     private long price;
 
-    private List<OrderMenuItem> orderMenuItems; // [0..*]
+    private Set<OrderMenuItem> orderMenuItems = new HashSet<>(); // [0..*]
     private Menu menu;
     // Normal, Vegan; Food, Drink = multi-aspect inheritance
     private Set<Ingredient> ingredients = new HashSet<>();
@@ -51,6 +51,7 @@ public class MenuItem implements Serializable {
         }
     }
 
+    // delete the MenuItem
     public void delete() {
         if (menu != null && menu.getItems().contains(this)) {
             menu.removeMenuItem(this);
@@ -59,8 +60,17 @@ public class MenuItem implements Serializable {
         this.menu = null;
     }
 
-    public List<OrderMenuItem> getOrderMenuItems() {
-        return orderMenuItems;
+    public Set<OrderMenuItem> getOrderMenuItems() {
+        return Collections.unmodifiableSet(orderMenuItems);
+    }
+
+    public void addOrderMenuItem(OrderMenuItem orderMenuItem) {
+        Validator.validateNullObjects(orderMenuItem);
+        orderMenuItems.add(orderMenuItem);
+    }
+
+    public boolean deleteOrderMenuItem(OrderMenuItem orderMenuItem) {
+        return orderMenuItems.remove(orderMenuItem);
     }
 
     public Menu getMenu() {
