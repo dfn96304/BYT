@@ -65,5 +65,105 @@ public class ChefTest extends TestBase<Chef> {
 
         assertEquals(0, extent().size(), "No object should be added to extent on validation failure.");
     }
+
+    //  REFLEXIVE ASSOCIATION TESTS
+    @Test
+    void supervisorIsAssignedCorrectly() {
+        Chef a = new Chef("A", "A", "+48111111111", "a@a.com", 9000);
+        Chef b = new Chef("B", "B", "+48222222222", "b@b.com", 9000);
+
+        a.setSupervisor(b);
+
+        assertEquals(b, a.getSupervisor(), "Supervisor should be assigned");
+        assertEquals(1, b.getSupervisedChefs().size(), "Supervisor must have subordinate");
+        assertEquals(a, b.getSupervisedChefs().get(0), "Subordinate must match");
+    }
+
+    @Test
+    void cannotSuperviseSelf() {
+        Chef a = new Chef("A", "A", "+48111111111", "a@a.com", 9000);
+
+        assertThrows(IllegalArgumentException.class,
+                () -> a.setSupervisor(a),
+                "Chef should not be able to supervise themselves");
+    }
+
+    @Test
+    void addingSupervisedChefShouldAssignSupervisor() {
+        Chef supervisor = new Chef("Sup", "X", "+48123400000", "sup@a.com", 9000);
+        Chef worker = new Chef("Work", "Y", "+48123400001", "work@a.com", 9000);
+
+        supervisor.addSupervisedChef(worker);
+
+        assertEquals(supervisor, worker.getSupervisor(), "Worker should have supervisor assigned");
+        assertEquals(1, supervisor.getSupervisedChefs().size(), "Supervisor must have 1 subordinate");
+    }
+
+    @Test
+    void removingSupervisedChefShouldRemoveSupervisorReference() {
+        Chef supervisor = new Chef("Sup", "X", "+48123400000", "sup@a.com", 9000);
+        Chef worker = new Chef("Work", "Y", "+48123400001", "work@a.com", 9000);
+
+        supervisor.addSupervisedChef(worker);
+        supervisor.removeSupervisedChef(worker);
+
+        assertEquals(0, supervisor.getSupervisedChefs().size(), "List should be empty after removal");
+        assertEquals(null, worker.getSupervisor(), "Worker should no longer have supervisor");
+    }
+
+    @Test
+    void cannotCreateSupervisionLoop_directCycle() {
+        Chef a = new Chef("A", "X", "+48111110000", "a@a.com", 9000);
+        Chef b = new Chef("B", "Y", "+48111110001", "b@a.com", 9000);
+
+        a.setSupervisor(b);
+
+        assertThrows(IllegalArgumentException.class,
+                () -> b.setSupervisor(a),
+                "Direct supervision loop should be forbidden");
+    }
+
+    @Test
+    void cannotCreateSupervisionLoop_indirectCycle() {
+        Chef a = new Chef("A", "X", "+48111110000", "a@a.com", 9000);
+        Chef b = new Chef("B", "Y", "+48111110001", "b@a.com", 9000);
+        Chef c = new Chef("C", "Z", "+48111110002", "c@a.com", 9000);
+
+        a.setSupervisor(b);
+        b.setSupervisor(c);
+
+        assertThrows(IllegalArgumentException.class,
+                () -> c.setSupervisor(a),
+                "Indirect supervision loop (A→B→C→A) must be blocked.");
+    }
+
+    @Test
+    void changingSupervisorShouldUpdateBothSides() {
+        Chef a = new Chef("A", "A", "+48111111111", "a@a.com", 9000);
+        Chef oldSup = new Chef("Old", "S", "+48222222222", "old@a.com", 9000);
+        Chef newSup = new Chef("New", "S", "+48333333333", "new@a.com", 9000);
+
+        a.setSupervisor(oldSup);
+        a.setSupervisor(newSup);
+
+        assertEquals(newSup, a.getSupervisor(), "New supervisor should be assigned");
+        assertEquals(1, newSup.getSupervisedChefs().size(), "New supervisor should have subordinate");
+        assertEquals(0, oldSup.getSupervisedChefs().size(), "Old supervisor should no longer have subordinate");
+    }
+
+    @Test
+    void getSupervisedChefsReturnsCopyNotReference() {
+        Chef sup = new Chef("Sup", "A", "+48111119999", "sup@a.com", 9000);
+        Chef w = new Chef("Work", "B", "+48111118888", "w@a.com", 9000);
+
+        sup.addSupervisedChef(w);
+
+        List<Chef> list = sup.getSupervisedChefs();
+        list.clear(); // attempt external modification
+
+        assertEquals(1, sup.getSupervisedChefs().size(),
+                "Returned list should be a copy, not the internal reference");
+    }
+
 }
 
