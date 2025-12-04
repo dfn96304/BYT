@@ -1,5 +1,8 @@
 package BYT.Tests;
 
+import BYT.Classes.Order.Order;
+import BYT.Classes.MenuItem.MenuItem;
+import BYT.Classes.Menu.Menu;
 import BYT.Classes.MenuItem.Food;
 import BYT.Classes.Person.Customer;
 import BYT.Classes.Person.Person;
@@ -7,6 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -78,6 +82,89 @@ public class CustomerTest extends TestBase<Customer> {
                 () -> c1.addLoyaltyPoints(-25),
                 "Adding negative points should throw exception");
         assertEquals(100, c1.getLoyaltyPoints(), "Loyalty points should remain unchanged after failed addition");
+    }
+
+    //  ASSOCIATION TESTS: Customer - Order
+
+    @Test
+    void addOrderCreatesBidirectionalAssociation() {
+        Customer c = new Customer("Ann", "Blue", "+48111111111", "a@a.com", 0);
+        Menu menu = new Menu(LocalDate.now(), LocalDate.now().plusDays(5));
+        Order order = new Order(1, "note", new MenuItem("x", "y", 10, menu));
+
+        c.addOrder(order);
+
+        assertTrue(c.getOrders().contains(order), "Customer must contain the order");
+        assertEquals(c, order.getCustomer(), "Order must reference the customer");
+    }
+
+    @Test
+    void removeOrderBreaksBidirectionalAssociation() {
+        Customer c = new Customer("Ann", "Blue", "+48111111111", "a@a.com", 0);
+        Menu menu = new Menu(LocalDate.now(), LocalDate.now().plusDays(5));
+        Order order = new Order(1, "note", new MenuItem("x", "y", 10, menu));
+
+        c.addOrder(order);
+        c.removeOrder(order);
+
+        assertFalse(c.getOrders().contains(order), "Customer should no longer contain order");
+        assertNull(order.getCustomer(), "Order customer reference must be cleared");
+    }
+
+    @Test
+    void addingSameOrderTwiceDoesNotDuplicate() {
+        Customer c = new Customer("Ann", "Blue", "+48111111111", "a@a.com", 0);
+        Menu menu = new Menu(LocalDate.now(), LocalDate.now().plusDays(5));
+        Order order = new Order(1, "note", new MenuItem("x", "y", 10, menu));
+
+        c.addOrder(order);
+        c.addOrder(order);
+
+        assertEquals(1, c.getOrders().size(), "Order set must not contain duplicates");
+    }
+
+    @Test
+    void addOrderThrowsWhenNull() {
+        Customer c = new Customer("Ann", "Blue", "+48111111111", "a@a.com", 0);
+        assertThrows(IllegalArgumentException.class, () -> c.addOrder(null));
+    }
+
+    @Test
+    void removeOrderThrowsWhenNull() {
+        Customer c = new Customer("Ann", "Blue", "+48111111111", "a@a.com", 0);
+        assertThrows(IllegalArgumentException.class, () -> c.removeOrder(null));
+    }
+
+    @Test
+    void setCustomerOnOrderUpdatesCustomerCollection() {
+        Customer c = new Customer("Ann", "Blue", "+48111111111", "a@a.com", 0);
+        Menu menu = new Menu(LocalDate.now(), LocalDate.now().plusDays(5));
+        Order order = new Order(1, "note", new MenuItem("x", "y", 10, menu));
+
+        order.setCustomer(c);
+
+        assertEquals(c, order.getCustomer(), "Order must reference the customer");
+        assertTrue(c.getOrders().contains(order),
+                "Customer must contain order after setCustomer()");
+    }
+
+    @Test
+    void reassignOrderToAnotherCustomerUpdatesBothSides() {
+        Customer c1 = new Customer("Ann", "Blue", "+48111111111", "a@a.com", 0);
+        Customer c2 = new Customer("Tom", "Gray", "+48111111111", "b@b.com", 0);
+        Menu menu = new Menu(LocalDate.now(), LocalDate.now().plusDays(5));
+        Order order = new Order(1, "note", new MenuItem("x", "y", 10, menu));
+
+        order.setCustomer(c1);
+        order.setCustomer(c2);
+
+        assertFalse(c1.getOrders().contains(order),
+                "Order should be removed from old customer");
+
+        assertTrue(c2.getOrders().contains(order),
+                "Order should be present in new customer");
+
+        assertEquals(c2, order.getCustomer());
     }
 }
 

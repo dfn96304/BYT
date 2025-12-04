@@ -1,12 +1,12 @@
 package BYT.Classes.Person;
-
+import BYT.Classes.Order.Order;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class Waiter extends Employee implements Serializable {
     private static List<Waiter> extent = new ArrayList<>();
+
+    private Set<Order> orders = new HashSet<>();
 
     public Waiter(String firstName, String lastName, String phoneNumber, String email, long salary) {
         super(firstName, lastName, phoneNumber, email, salary);
@@ -22,6 +22,28 @@ public class Waiter extends Employee implements Serializable {
         }
 
         return new Waiter(firstName, lastName, phoneNumber, email, salary);
+    }
+
+    public void addOrder(Order order) {
+        if (order == null) throw new IllegalArgumentException("order cannot be null");
+
+        if (!orders.contains(order)) {
+            orders.add(order);
+            order.setWaiter(this);
+        }
+    }
+
+    public void removeOrder(Order order) {
+        if (order == null) throw new IllegalArgumentException("order cannot be null");
+
+        if (orders.contains(order)) {
+            orders.remove(order);
+            order.setWaiter(null);
+        }
+    }
+
+    public Set<Order> getOrders() {
+        return Collections.unmodifiableSet(orders);
     }
 
     @Override

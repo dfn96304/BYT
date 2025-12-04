@@ -1,5 +1,6 @@
 package BYT.Classes.Order;
-
+import BYT.Classes.Person.Waiter;
+import BYT.Classes.Person.Customer;
 import BYT.Classes.MenuItem.MenuItem;
 
 import java.io.Serializable;
@@ -14,6 +15,9 @@ public class Order implements Serializable {
 
     private Set<OrderMenuItem> orderMenuItems; // [1..*]
 
+    private Waiter waiter;
+    private Customer customer;
+
     public Order(int quantity, String orderNotes, MenuItem menuItem){
         this.date = LocalDateTime.now();
         this.status = OrderStatus.CREATED;
@@ -22,6 +26,37 @@ public class Order implements Serializable {
         createOrderMenuItem(quantity, orderNotes, menuItem);
 
         extent.add(this);
+    }
+
+    public Waiter getWaiter() {
+        return waiter;
+    }
+
+    public void setWaiter(Waiter waiter) {
+        if (this.waiter != null && this.waiter != waiter) {
+            this.waiter.removeOrder(this);
+        }
+        this.waiter = waiter;
+
+        if (waiter != null && !waiter.getOrders().contains(this)) {
+            waiter.addOrder(this);
+        }
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer newCustomer) {
+        if (this.customer != null && this.customer != newCustomer) {
+            this.customer.removeOrder(this);
+        }
+
+        this.customer = newCustomer;
+
+        if (newCustomer != null && !newCustomer.getOrders().contains(this)) {
+            newCustomer.addOrder(this);
+        }
     }
 
     // main class for controlling Order-OrderMenuItem-MenuItem

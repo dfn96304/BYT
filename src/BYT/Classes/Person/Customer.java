@@ -1,5 +1,5 @@
 package BYT.Classes.Person;
-
+import BYT.Classes.Order.Order;
 import BYT.Classes.Table.Reservation;
 import BYT.Classes.Table.Table;
 import BYT.Helpers.Validator;
@@ -13,11 +13,34 @@ public class Customer extends Person implements Serializable {
     private long loyaltyPoints;
     private final Map<String, Reservation> reservationMap = new HashMap<>();
 
+    private Set<Order> orders = new HashSet<>();
+
     public Customer(String firstName, String lastName, String phoneNumber, String email, long loyaltyPoints) {
         super(firstName, lastName, phoneNumber, email);
         this.loyaltyPoints = Validator.negativeNumberEntered(loyaltyPoints);
 
         extent.add(this);
+    }
+
+    public void addOrder(Order order) {
+        if (order == null) throw new IllegalArgumentException("Order cannot be null");
+
+        if (!orders.contains(order)) {
+            orders.add(order);
+            order.setCustomer(this);
+        }
+    }
+
+    public void removeOrder(Order order) {
+        if (order == null) throw new IllegalArgumentException("Order cannot be null");
+        if (orders.contains(order)) {
+            orders.remove(order);
+            order.setCustomer(null);
+        }
+    }
+
+    public Set<Order> getOrders() {
+        return Collections.unmodifiableSet(orders);
     }
 
     public long getLoyaltyPoints() {
