@@ -79,10 +79,11 @@ public class Order implements Serializable {
         return Collections.unmodifiableSet(orderMenuItems);
     }
 
-    public void createOrderMenuItem(int quantity, String orderNotes, MenuItem menuItem){
+    public OrderMenuItem createOrderMenuItem(int quantity, String orderNotes, MenuItem menuItem){
         if(status != OrderStatus.CREATED) throw new IllegalStateException("Items can be added to Order only when the Order is in status CREATED");
         OrderMenuItem orderMenuItem = new OrderMenuItem(quantity, orderNotes, this, menuItem); // takes care of OrderMenuItem extent + MenuItem set
         orderMenuItems.add(orderMenuItem); // Order set
+        return orderMenuItem;
     }
 
     public void deleteOrderMenuItem(OrderMenuItem orderMenuItem) throws IllegalStateException{

@@ -14,8 +14,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class OrderTest extends TestBase<Order> {
 
@@ -152,38 +151,52 @@ public class OrderTest extends TestBase<Order> {
     }
 
     @Test
-    void checkOrderAddingItemsReverseConnectionAndTotalPrice(){
+    void checkOrderAddingItemsReverseConnectionAndTotalPrices(){
         assertEquals(1, order.getOrderMenuItems().size());
 
-        order.createOrderMenuItem(12, "test1", new MenuItem("Citrus-Brined Olives", "Marinated mixed olives with orange zest and herbs", 7, testMenu));
-        order.createOrderMenuItem(31, "test2", new MenuItem("Citrus-Brined Olives", "Marinated mixed olives with orange zest and herbs", 7, testMenu));
-        assertEquals(3, order.getOrderMenuItems().size());
-        assertEquals(7 * (31+12+1), order.getTotalPrice());
+        MenuItem menuItem1 = new MenuItem("Citrus-Brined Olives", "Marinated mixed olives with orange zest and herbs", 7, testMenu);
+        MenuItem menuItem2 = new MenuItem("Citrus-Brined Olives", "Marinated mixed olives with orange zest and herbs", 7, testMenu);
 
-        // reverse connection test
-        for(OrderMenuItem orderMenuItem : order.getOrderMenuItems()){
-            assertEquals(orderMenuItem.getOrder(), order);
-        }
+        OrderMenuItem omu1 = order.createOrderMenuItem(12, "test1", menuItem1);
+        OrderMenuItem omu2 = order.createOrderMenuItem(31, "test2", menuItem2);
+        assertEquals(3, order.getOrderMenuItems().size(), "Order should have 3 junction classes (OrderMenuItem)");
+        assertEquals(7 * (31+12+1), order.getTotalPrice(), "Total price should be correct");
+
+        assertTrue(order.getOrderMenuItems().contains(omu1), "Order should be linked to omu1");
+        assertTrue(order.getOrderMenuItems().contains(omu2), "Order should be linked to omu2");
+
+        assertEquals(omu1.getOrder(), order, "omu1 should be linked to the Order which created it");
+        assertEquals(omu2.getOrder(), order, "omu2 should be linked to the Order which created it");
+
+        assertEquals(omu1.getMenuItem(), menuItem1, "omu1 should be linked to menuItem1");
+        assertEquals(omu2.getMenuItem(), menuItem2, "omu2 should be linked to menuItem2");
+
+        assertTrue(menuItem1.getOrderMenuItems().contains(omu1), "menuItem1 should be linked to omu1");
+        assertTrue(menuItem2.getOrderMenuItems().contains(omu2), "menuItem2 should be linked to omu2");
+
+        order.deleteOrderMenuItem(omu1);
+        order.deleteOrderMenuItem(omu2);
+    }
+
+    @Test
+    void deletingLastOrderMenuItemForOrderThrows(){
+        assertThrows(IllegalStateException.class, () -> {
+            order.deleteOrderMenuItem(order.getOrderMenuItems().iterator().next());
+        });
     }
 
     @Test
     void addNullMenuItemThrows(){
-        assertThrows(IllegalArgumentException.class, () -> {
-            order.createOrderMenuItem(3, "test1", null);
-        });
+        assertThrows(IllegalArgumentException.class, () -> order.createOrderMenuItem(3, "test1", null));
     }
 
     @Test
     void addEmptyStringOrderNotesThrows(){
-        assertThrows(IllegalArgumentException.class, () -> {
-            order.createOrderMenuItem(3, "", new MenuItem("Citrus-Brined Olives", "Marinated mixed olives with orange zest and herbs", 7, testMenu));
-        });
+        assertThrows(IllegalArgumentException.class, () -> order.createOrderMenuItem(3, "", new MenuItem("Citrus-Brined Olives", "Marinated mixed olives with orange zest and herbs", 7, testMenu)));
     }
 
     @Test
     void removeNullMenuItemThrows(){
-        assertThrows(Exception.class, () -> {
-            order.deleteOrderMenuItem(null);
-        });
+        assertThrows(Exception.class, () -> order.deleteOrderMenuItem(null));
     }
 }
