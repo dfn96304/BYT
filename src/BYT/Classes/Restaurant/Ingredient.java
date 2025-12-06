@@ -1,19 +1,44 @@
-package BYT.Classes.MenuItem;
+package BYT.Classes.Restaurant;
 
 import BYT.Helpers.Validator;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class Ingredient implements Serializable {
     private static final List<Ingredient> extent = new ArrayList<>();
     private String name;
+    private Set<MenuItem> menuItems = new HashSet<>();
 
     public Ingredient(String name) {
         this.name = Validator.validateAttributes(name);
         extent.add(this);
+    }
+
+    void addMenuItem(MenuItem item) {
+        Validator.validateNullObjects(item);
+        if (!menuItems.contains(item)) {
+            menuItems.add(item);
+            item.addIngredient(this);
+        }
+    }
+
+    void removeMenuItem(MenuItem item) {
+        if (menuItems.contains(item)) {
+            menuItems.remove(item);
+            item.removeIngredient(this);
+        }
+    }
+
+    public void delete() {
+        for (MenuItem item : menuItems) {
+            item.removeIngredient(this);
+        }
+        extent.remove(this);
+    }
+
+    public Set<MenuItem> getMenuItems() {
+        return Collections.unmodifiableSet(menuItems);
     }
 
     public String getName() {

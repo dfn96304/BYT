@@ -4,9 +4,7 @@ import BYT.Classes.Order.OrderMenuItem;
 import BYT.Helpers.Validator;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class MenuItem implements Serializable {
     private static final List<MenuItem> extent = new ArrayList<>();
@@ -16,6 +14,7 @@ public class MenuItem implements Serializable {
     private long price;
 
     private List<OrderMenuItem> orderMenuItems; // [0..*]
+    private Set<Ingredient> ingredients = new HashSet<>();
     private Menu menu;
     // Normal, Vegan; Food, Drink = multi-aspect inheritance
 
@@ -28,7 +27,26 @@ public class MenuItem implements Serializable {
         extent.add(this);
     }
 
+    void addIngredient(Ingredient ingredient) {
+        Validator.validateNullObjects(ingredient);
+        if (!ingredients.contains(ingredient)) {
+            ingredients.add(ingredient);
+            ingredient.addMenuItem(this);
+        }
+    }
+
+    void removeIngredient(Ingredient ingredient) {
+        if (ingredients.contains(ingredient)) {
+            ingredients.remove(ingredient);
+            ingredient.removeMenuItem(this);
+        }
+    }
+
     void delete() {
+        for (Ingredient ingredient : ingredients) {
+            removeIngredient(ingredient);
+        }
+
         if (menu != null && menu.getItems().contains(this)) {
             menu.removeMenuItem(this);
         }
