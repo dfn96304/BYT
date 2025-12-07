@@ -146,4 +146,27 @@ public class ReservationTest extends TestBase<Reservation> {
         assertTrue(testCustomer2.getReservationMap().containsValue(r), "Reservation must be added to the reverse association in customer 2.");
         assertFalse(testCustomer.getReservationMap().containsValue(r), "Reservation must be removed from the reverse association in customer 1.");
     }
+
+    @Test
+    void addDuplicateReservationToCustomer_throws(){
+        Reservation r = new Reservation(NOW, NOW, testCustomer, 2, table1);
+        assertThrows(IllegalArgumentException.class, () -> testCustomer.addOrMoveReservation(testCustomer.generateRandomReservationNumber(), r));
+    }
+
+    @Test
+    void addNullReservationToCustomer_throws(){
+        assertThrows(IllegalArgumentException.class, () -> testCustomer.addOrMoveReservation(testCustomer.generateRandomReservationNumber(), null));
+    }
+
+    @Test
+    void addNullReservationNumToCustomer_throws(){
+        Reservation r = new Reservation(NOW, NOW, testCustomer, 2, table1);
+        assertThrows(IllegalArgumentException.class, () -> testCustomer.addOrMoveReservation(null, r));
+    }
+
+    @Test
+    void setNullTable_throws(){
+        Reservation r = new Reservation(NOW, NOW, testCustomer, 2, table1);
+        assertThrows(IllegalArgumentException.class, () -> r.setTable(null));
+    }
 }
