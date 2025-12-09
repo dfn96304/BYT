@@ -148,9 +148,18 @@ public class ReservationTest extends TestBase<Reservation> {
     }
 
     @Test
-    void addDuplicateReservationToCustomer_throws(){
-        Reservation r = new Reservation(NOW, NOW, testCustomer, 2, table1);
+    void addDuplicateReservationValueWithDifferentNumberToCustomer_throws(){
+        Reservation r = new Reservation(NOW, NOW, testCustomer, 2, table1); // already associates the reservation with Customer
+        assertEquals(1, testCustomer.getReservationMap().size(), "There should be 1 reservation associated with Customer.");
         assertThrows(IllegalArgumentException.class, () -> testCustomer.addOrMoveReservation(testCustomer.generateRandomReservationNumber(), r));
+    }
+
+    @Test
+    void addDuplicateReservationNumberToCustomer_throws(){
+        Reservation r = new Reservation(NOW, NOW, testCustomer, 2, table1); // already associates the reservation with Customer
+        assertEquals(1, testCustomer.getReservationMap().size(), "There should be 1 reservation associated with Customer.");
+        String duplicateNumber = testCustomer.getReservationMap().entrySet().iterator().next().getKey();
+        assertThrows(IllegalArgumentException.class, () -> testCustomer.addOrMoveReservation(duplicateNumber, r)); // number check should throw first
     }
 
     @Test
