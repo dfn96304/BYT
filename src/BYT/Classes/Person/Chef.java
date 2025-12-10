@@ -10,7 +10,7 @@ public class Chef extends Employee implements Serializable {
     private static final List<Chef> extent = new ArrayList<>();
 
     private Chef supervisor;
-    private final List<Chef> supervisedChefs = new ArrayList<>();
+   // private final List<Chef> supervisedChefs = new ArrayList<>();
 
     private final List<Order> involvedIn = new ArrayList<>();
     private final List<Order> responsibleFor = new ArrayList<>();
@@ -59,11 +59,11 @@ public class Chef extends Employee implements Serializable {
             newSupervisor.supervisedChefs.add(this);
         }
     }
-
+   /*
     public void addSupervisedChef(Chef chef) {
         if(chef == null) return;
         chef.setSupervisor(this);
-    }
+    }*/
 
     public void removeSupervisedChef(Chef chef){
         if(chef == null) return;
