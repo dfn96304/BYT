@@ -23,6 +23,9 @@ public class OrderTest extends TestBase<Order> {
     }
 
     private Order order;
+    private Waiter waiter;
+    private Customer customer;
+    private Menu testMenu;
 
     @BeforeEach
     void setup(){
@@ -89,4 +92,20 @@ public class OrderTest extends TestBase<Order> {
     // associations moved to OrderWaiterTest
     // associations moved to OrderCustomerTest
     // associations moved to OrderChefTest
+
+    // Null Waiter/Customer Tests
+
+    @Test
+    void constructorThrowsWhenWaiterIsNull() {
+        assertThrows(IllegalArgumentException.class, () ->
+                        new Order(1, "Note", new MenuItem("Dish", "Desc", 5, testMenu), null, customer),
+                "Order constructor should throw if Waiter is null");
+    }
+
+    @Test
+    void constructorThrowsWhenCustomerIsNull() {
+        assertThrows(IllegalArgumentException.class, () ->
+                        new Order(1, "Note", new MenuItem("Dish", "Desc", 5, testMenu), waiter, null),
+                "Order constructor should throw if Customer is null");
+    }
 }
