@@ -86,4 +86,7 @@ public class OrderTest extends TestBase<Order> {
     }
 
     // associations moved to OrderMenuItemTest
+    // associations moved to OrderWaiterTest
+    // associations moved to OrderCustomerTest
+    // associations moved to OrderChefTest
 }
