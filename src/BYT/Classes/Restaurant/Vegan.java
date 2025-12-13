@@ -1,7 +1,5 @@
-package BYT.Classes.MenuItem;
+package BYT.Classes.Restaurant;
 
-import BYT.Classes.Restaurant.Menu;
-import BYT.Classes.Restaurant.MenuItem;
 import BYT.Helpers.Validator;
 
 import java.io.Serializable;
@@ -18,7 +16,8 @@ public class Vegan implements Serializable {
     // "ABPL2814394243"
     // A certificationID can in theory be any combination arbitrary numbers and letters
 
-    public Vegan(MenuItem menuItem) {
+    Vegan(MenuItem menuItem) {
+        this.setMenuItem(menuItem);
         extent.add(this);
     }
 
@@ -26,7 +25,11 @@ public class Vegan implements Serializable {
         return menuItem;
     }
 
-    // no setMenuItem() - not dynamic
+    private void setMenuItem(MenuItem menuItem) {
+        Validator.validateNullObjects(menuItem);
+        this.menuItem = menuItem;
+        //menuItem.setVeganPart(this);
+    }
 
     public String getCertificationID() {
         return certificationID;

@@ -1,7 +1,5 @@
-package BYT.Classes.MenuItem;
+package BYT.Classes.Restaurant;
 
-import BYT.Classes.Restaurant.Menu;
-import BYT.Classes.Restaurant.MenuItem;
 import BYT.Helpers.Validator;
 
 import java.io.Serializable;
@@ -14,7 +12,7 @@ public class Normal implements Serializable {
 
     private final List<String> meatTypes; // [0..*]
 
-    public Normal(MenuItem menuItem) {
+    Normal(MenuItem menuItem) {
         meatTypes = new ArrayList<>();
         this.setMenuItem(menuItem);
         extent.add(this);
@@ -27,6 +25,7 @@ public class Normal implements Serializable {
     private void setMenuItem(MenuItem menuItem) {
         Validator.validateNullObjects(menuItem);
         this.menuItem = menuItem;
+        //menuItem.setNormalPart(this);
     }
 
     public List<String> getMeatTypes() {

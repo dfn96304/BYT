@@ -1,17 +1,5 @@
 package BYT.Tests;
 
-import BYT.Classes.Restaurant.Menu;
-import BYT.Classes.MenuItem.Normal;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import java.io.IOException;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 /*public class NormalTest extends TestBase<Normal> {
     private Menu testMenu;
 

@@ -1,16 +1,5 @@
 package BYT.Tests;
 
-import BYT.Classes.Restaurant.Menu;
-import BYT.Classes.MenuItem.Vegan;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import java.io.IOException;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /*public class VeganTest extends TestBase<Vegan> {
