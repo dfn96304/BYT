@@ -1,12 +1,14 @@
 package BYT.Classes.Restaurant;
 
+import BYT.Classes.MenuItem.Normal;
+import BYT.Classes.MenuItem.Vegan;
 import BYT.Classes.Order.OrderMenuItem;
 import BYT.Helpers.Validator;
 
 import java.io.Serializable;
 import java.util.*;
 
-public class MenuItem implements Serializable {
+public abstract class MenuItem implements Serializable {
     private static final List<MenuItem> extent = new ArrayList<>();
     private String name;
     private String description;
@@ -14,16 +16,49 @@ public class MenuItem implements Serializable {
     private Set<OrderMenuItem> orderMenuItems = new HashSet<>(); // [0..*]
     private Set<Ingredient> ingredients = new HashSet<>();
     private Menu menu;
-    // Normal, Vegan; Food, Drink = multi-aspect inheritance
+    // Food, Drink = normal Java inheritance
+    // Normal, Vegan = Composition, separate classes
+    private Normal normalPart;
+    private Vegan veganPart;
 
-
-    public MenuItem(String name, String description, long price, Menu menu) {
+    public MenuItem(String name, String description, long price, Menu menu, Normal normalPart, Vegan veganPart) {
         this.name = Validator.validateAttributes(name);
         this.description = Validator.validateAttributes(description);
         this.price = Validator.validatePrice(price);
         this.menu = (Menu) Validator.validateNullObjects(menu);
+        // XOR/Disjoint inheritance logic
+        if(normalPart == null && veganPart == null) throw new IllegalArgumentException("This inheritance is Disjoint - either a Normal or a Vegan inheritance part object must be provided.");
+        if(normalPart != null && veganPart != null) throw new IllegalArgumentException("This inheritance is Disjoint - Normal and Vegan objects cannot be provided at the same time.");
+
+        if(normalPart != null) setNormalPart(normalPart);
+        if(veganPart != null) setVeganPart(veganPart);
+
         this.menu.createMenuItem(this);
         extent.add(this);
+    }
+
+    private boolean isNormalVeganInheritanceCreated(){
+        return normalPart != null || veganPart != null;
+    }
+
+    public Normal getNormalPart() {
+        return normalPart;
+    }
+
+    public void setNormalPart(Normal normalPart) {
+        if(isNormalVeganInheritanceCreated()) throw new IllegalStateException("This inheritance is Disjoint and has already been created.");
+        Validator.validateNullObjects(normalPart);
+        this.normalPart = normalPart;
+    }
+
+    public Vegan getVeganPart() {
+        return veganPart;
+    }
+
+    public void setVeganPart(Vegan veganPart) {
+        if(isNormalVeganInheritanceCreated()) throw new IllegalStateException("This inheritance is Disjoint and has already been created.");
+        Validator.validateNullObjects(veganPart);
+        this.veganPart = veganPart;
     }
 
     public void addIngredient(Ingredient ingredient) {

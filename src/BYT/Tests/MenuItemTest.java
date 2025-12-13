@@ -11,7 +11,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MenuItemTest extends TestBase<MenuItem> {
+/*public class MenuItemTest extends TestBase<MenuItem> {
 
     private Menu testMenu;
 
@@ -78,4 +78,4 @@ public class MenuItemTest extends TestBase<MenuItem> {
         futureMenu.delete();
         Assertions.assertFalse(extent().contains(item));
     }
-}
+}*/

@@ -9,17 +9,24 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Vegan extends MenuItem implements Serializable {
+public class Vegan implements Serializable {
     private static List<Vegan> extent = new ArrayList<>();
+
+    private MenuItem menuItem;
+
     private String certificationID;
     // "ABPL2814394243"
     // A certificationID can in theory be any combination arbitrary numbers and letters
 
-    public Vegan(String name, String description, long price, String certificationID, Menu menu) {
-        super(name, description, price, menu);
-        this.certificationID = Validator.validateAttributes(certificationID);
+    public Vegan(MenuItem menuItem) {
         extent.add(this);
     }
+
+    public MenuItem getMenuItem() {
+        return menuItem;
+    }
+
+    // no setMenuItem() - not dynamic
 
     public String getCertificationID() {
         return certificationID;

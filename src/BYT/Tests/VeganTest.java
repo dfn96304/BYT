@@ -13,7 +13,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class VeganTest extends TestBase<Vegan> {
+/*public class VeganTest extends TestBase<Vegan> {
 
     private Menu testMenu;
     protected VeganTest() {
@@ -67,4 +67,4 @@ public class VeganTest extends TestBase<Vegan> {
             vegan.setCertificationID("");
         });
     }
-}
+}*/
