@@ -7,7 +7,12 @@ import java.io.Serializable;
 import java.util.*;
 
 public abstract class MenuItem implements Serializable {
-    private static final List<MenuItem> extent = new ArrayList<>();
+    /*private static final List<MenuItem> extent = new ArrayList<>();
+
+    public static List<MenuItem> getMenuItemExtent(){
+        return Collections.unmodifiableList(extent);
+    }*/
+
     private String name;
     private String description;
     private long price;
@@ -24,7 +29,7 @@ public abstract class MenuItem implements Serializable {
         VEGAN
     }
 
-    public MenuItem(String name, String description, long price, Menu menu, DietInheritanceTypes dietInheritanceTypes) {
+    protected MenuItem(String name, String description, long price, Menu menu, DietInheritanceTypes dietInheritanceTypes) {
         this.name = Validator.validateAttributes(name);
         this.description = Validator.validateAttributes(description);
         this.price = Validator.validatePrice(price);
@@ -42,11 +47,7 @@ public abstract class MenuItem implements Serializable {
         }
 
         this.menu.createMenuItem(this);
-        extent.add(this);
-    }
-
-    public List<MenuItem> getExtent(){
-        return Collections.unmodifiableList(extent);
+        //extent.add(this);
     }
 
     private boolean isNormalVeganInheritanceCreated(){
@@ -97,6 +98,9 @@ public abstract class MenuItem implements Serializable {
         }
     }
 
+    // Hook: each concrete subclass deletes itself
+    protected abstract void deleteSubclass();
+
     // delete the MenuItem
     public void delete() {
         for (Ingredient ingredient : ingredients) {
@@ -106,10 +110,10 @@ public abstract class MenuItem implements Serializable {
         if (menu != null && menu.getItems().contains(this)) {
             menu.removeMenuItem(this);
         }
-        extent.remove(this);
+        this.deleteSubclass();
         this.menu = null;
-        if(normalPart != null) normalPart.delete();
-        if(veganPart != null) veganPart.delete();
+        if(normalPart != null && Normal.getExtent().contains(normalPart)) normalPart.delete();
+        if(veganPart != null && Vegan.getExtent().contains(veganPart)) veganPart.delete();
         this.normalPart = null;
         this.veganPart = null;
     }

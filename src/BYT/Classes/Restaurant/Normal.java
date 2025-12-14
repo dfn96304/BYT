@@ -5,8 +5,12 @@ import BYT.Helpers.Validator;
 import java.io.Serializable;
 import java.util.*;
 
-public class Normal implements Serializable {
+public final class Normal implements Serializable {
     private static final List<Normal> extent = new ArrayList<>();
+
+    public static List<Normal> getExtent(){
+        return Collections.unmodifiableList(extent);
+    }
 
     private MenuItem menuItem;
 
@@ -20,8 +24,7 @@ public class Normal implements Serializable {
 
     public void delete(){
         extent.remove(this);
-        if(menuItem.getExtent().contains(menuItem))
-            menuItem.delete();
+        menuItem.delete();
         this.menuItem = null;
     }
 

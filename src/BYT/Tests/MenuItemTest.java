@@ -24,7 +24,7 @@ public class MenuItemTest extends TestBase<MenuItem> {
 
     @BeforeEach
     void setUp() {
-        clearExtentInMemoryList();
+        //clearExtentInMemoryList();
         testMenu = new Menu(LocalDate.now(), LocalDate.now().plusDays(5));
     }
 
@@ -77,6 +77,7 @@ public class MenuItemTest extends TestBase<MenuItem> {
         Menu futureMenu = new Menu(LocalDate.now().plusDays(1), LocalDate.now().plusDays(5));
         MenuItem item = new Food("Pizza", "Pepperoni pizza", 1000L, 1000, futureMenu, NORMAL);
 
+        // TODO: broken because of changed extent
         Assertions.assertTrue(extent().contains(item));
         futureMenu.delete();
         Assertions.assertFalse(extent().contains(item));

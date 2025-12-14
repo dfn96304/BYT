@@ -2,6 +2,7 @@ package BYT.Classes;
 
 import BYT.Classes.Restaurant.Food;
 import BYT.Classes.Restaurant.Menu;
+import BYT.Classes.Restaurant.MenuItem;
 import BYT.Helpers.Extents;
 
 import java.time.LocalDate;
@@ -85,7 +86,16 @@ public class Main {
         Menu testMenu = new Menu(LocalDate.now(), LocalDate.now().plusDays(5));
         Food food = new Food("Citrus-Brined Olives", "Marinated mixed olives with orange zest and herbs", 7, 1000, testMenu, NORMAL);
 
+        System.out.println(food.getNormalPart());
+        System.out.println(food.getVeganPart());
 
+        System.out.println(Food.getFoodExtent().contains(food));
+
+        //food.getNormalPart().delete();
+        food.delete();
+
+        System.out.println(Food.getFoodExtent().contains(food));
+        //System.out.println(MenuItem.getMenuItemExtent().contains(food));
     }
 
     // TODO:

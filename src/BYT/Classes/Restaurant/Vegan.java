@@ -4,11 +4,16 @@ import BYT.Helpers.Validator;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-public class Vegan implements Serializable {
+public final class Vegan implements Serializable {
     private static List<Vegan> extent = new ArrayList<>();
+
+    public static List<Vegan> getExtent(){
+        return Collections.unmodifiableList(extent);
+    }
 
     private MenuItem menuItem;
 
@@ -23,8 +28,7 @@ public class Vegan implements Serializable {
 
     public void delete(){
         extent.remove(this);
-        if(menuItem.getExtent().contains(menuItem))
-            menuItem.delete();
+        menuItem.delete();
         this.menuItem = null;
     }
 

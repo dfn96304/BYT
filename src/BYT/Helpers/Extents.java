@@ -22,7 +22,7 @@ public final class Extents {
             Food.class,
             Ingredient.class,
             Menu.class,
-            MenuItem.class,
+            //MenuItem.class, // abstract class, no extent
             Normal.class,
             Order.class,
             Person.class,
