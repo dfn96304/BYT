@@ -175,7 +175,7 @@ public abstract class MenuItem implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         MenuItem menuItem = (MenuItem) o;
-        return price == menuItem.price && Objects.equals(name, menuItem.name) && Objects.equals(description, menuItem.description);
+        return price == menuItem.price && name.equals(menuItem.name) && description.equals(menuItem.description);
     }
 
     @Override
