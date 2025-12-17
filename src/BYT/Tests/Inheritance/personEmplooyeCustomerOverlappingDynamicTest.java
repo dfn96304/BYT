@@ -1,9 +1,6 @@
 package BYT.Tests.Inheritance;
 
-import BYT.Classes.Person.Chef;
-import BYT.Classes.Person.Customer;
-import BYT.Classes.Person.Person;
-import BYT.Classes.Person.Waiter;
+import BYT.Classes.Person.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -45,7 +42,6 @@ public class personEmplooyeCustomerOverlappingDynamicTest {
         person.removeRole(Customer.class);
 
         Customer customer2 = new Customer(person, 0);
-        person.addRole(customer2);
 
         Assertions.assertSame(person, customer2.getPerson());
     }
@@ -155,5 +151,18 @@ public class personEmplooyeCustomerOverlappingDynamicTest {
         Assertions.assertSame(p, waiter.getPerson());
     }
 
+    @Test
+    void addSecondCustomerRole_throws(){
+        Person person = new Person("John","Doe",phone,email);
+        Customer customer = new Customer(person, 0);
+        Assertions.assertThrows(Exception.class, () -> new Customer(person, 0));
+    }
 
+    @Test
+    void addChefAndWaiterToTheSamePerson_throws(){
+        Person person = new Person("John","Doe",phone,email);
+        Customer customer = new Customer(person, 0);
+        Chef chef = new Chef(person, Employee.getBaseSalary());
+        Assertions.assertThrows(Exception.class, () -> new Waiter(person, Employee.getBaseSalary()));
+    }
 }

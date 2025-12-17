@@ -25,6 +25,10 @@ public class Person implements Serializable {
         if (roles.containsKey(role.getClass())) {
             throw new IllegalStateException("Person already has the role: " + role.getClass().getSimpleName());
         }
+        if(role instanceof Employee && (roles.containsKey(Chef.class) || roles.containsKey(Waiter.class)))
+            throw new IllegalStateException("Person already has one Employee-type role");
+        if(roles.size() >= 2)
+            throw new IllegalStateException("Person already has 2 roles");
         roles.put(role.getClass(), role);
         if (role.getPerson() != this) {
             role.setPerson(this);
@@ -33,6 +37,18 @@ public class Person implements Serializable {
 
     public void removeRole(Class<? extends PersonRole> roleType) {
         roles.remove(roleType);
+    }
+
+    public void delete() {
+        for (PersonRole role : new ArrayList<>(roles.values())) {
+            role.delete();
+        }
+
+        roles.clear();
+    }
+
+    public boolean hasRole(Class<? extends PersonRole> personRole) {
+        return roles.containsKey(personRole.getClass());
     }
 
     public static Person findOrCreate(String firstName, String lastName, String phoneNumber, String email) {
